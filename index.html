@@ -143,7 +143,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(11,17,32,.95
 /* CENNIK */
 .pricing{background:var(--bg2);padding:90px 48px}
 .pricing-inner{max-width:1100px;margin:0 auto}
-.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:0}
+.pricing-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:0;max-width:800px;margin-left:auto;margin-right:auto}
 .price-card{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:20px;padding:36px;position:relative;transition:border-color .3s,transform .3s}
 .price-card:hover{border-color:rgba(245,158,11,.25);transform:translateY(-4px)}
 .price-card.featured{border-color:rgba(245,158,11,.4);background:linear-gradient(160deg,var(--card),rgba(245,158,11,.05))}
@@ -531,24 +531,10 @@ footer{background:#060d1a;border-top:1px solid rgba(255,255,255,.05);padding:48p
     <h2 class="section-title" style="text-align:center">Przejrzyste ceny</h2>
     <p class="section-sub" style="text-align:center;margin:0 auto 56px">Bez ukrytych opłat. Cena zawiera bagaż podręczny i jedną walizkę.</p>
     <div class="pricing-grid">
-      <div class="price-card">
-        <div class="price-name">Bilet Standard</div>
-        <div class="price-amount">od 180 <span>zł</span></div>
-        <div class="price-note">za osobę, jeden kierunek</div>
-        <ul class="price-list">
-          <li>Miejsce siedzące w busie</li>
-          <li>Bagaż 1 szt. do 20 kg</li>
-          <li>Bagaż podręczny 5 kg</li>
-          <li>WiFi na pokładzie</li>
-          <li>Ładowarka USB</li>
-          <li>Zmiana terminu 48h przed</li>
-        </ul>
-        <a href="#rezerwacja" class="btn-card-outline">Zarezerwuj</a>
-      </div>
       <div class="price-card featured">
-        <div class="price-badge">⭐ Najpopularniejszy</div>
+        <div class="price-badge">⭐ Bilet jednorazowy</div>
         <div class="price-name">Bilet Comfort</div>
-        <div class="price-amount">od 250 <span>zł</span></div>
+        <div class="price-amount">od 350 <span>zł</span></div>
         <div class="price-note">za osobę, jeden kierunek</div>
         <ul class="price-list">
           <li>Szersze siedzenie (2 miejsca)</li>
