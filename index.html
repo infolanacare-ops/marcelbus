@@ -410,10 +410,11 @@ footer{background:#060d1a;border-top:1px solid rgba(255,255,255,.05);padding:48p
     <!-- MAPA -->
     <div style="background:var(--card2);border:1px solid rgba(245,158,11,.2);border-radius:20px;padding:28px">
       <div style="font-size:.72rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px">Mapa tras</div>
-      <svg viewBox="0 0 500 460" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+      <!-- Projekcja: x=(lon-5.5)*30, y=(55.5-lat)*50 -->
+      <svg viewBox="0 0 570 425" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
         <defs>
-          <radialGradient id="glow2" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#F59E0B" stop-opacity="0.1"/>
+          <radialGradient id="mapGlow" cx="40%" cy="50%" r="55%">
+            <stop offset="0%" stop-color="#F59E0B" stop-opacity="0.09"/>
             <stop offset="100%" stop-color="#F59E0B" stop-opacity="0"/>
           </radialGradient>
           <marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
@@ -425,67 +426,76 @@ footer{background:#060d1a;border-top:1px solid rgba(255,255,255,.05);padding:48p
           </style>
         </defs>
 
-        <ellipse cx="250" cy="230" rx="180" ry="160" fill="url(#glow2)"/>
+        <rect width="570" height="425" fill="url(#mapGlow)"/>
 
-        <!-- NIEMCY -->
-        <path d="M85,45 L125,35 L165,48 L195,38 L215,58 L205,82 L220,105 L208,132 L224,158 L212,185 L196,200 L186,228 L170,243 L154,252 L142,268 L126,262 L110,272 L97,260 L87,245 L72,240 L58,224 L53,203 L63,182 L53,162 L58,136 L48,110 L58,86 L68,66 Z"
-          fill="rgba(245,158,11,0.05)" stroke="rgba(245,158,11,0.3)" stroke-width="1.5"/>
-        <text x="135" y="158" fill="rgba(245,158,11,0.6)" font-size="12" font-weight="800" font-family="Inter,sans-serif" text-anchor="middle" letter-spacing="1">NIEMCY</text>
+        <!-- NIEMCY — uproszczony zarys geograficzny (Oder-Nysa, Alpy, Ren, granica holenderska/duńska) -->
+        <path d="M 51,90 L 117,35 L 138,60 L 198,70 L 237,75 L 261,80
+                 L 270,160 L 285,220 L 282,230
+                 L 195,275 L 219,310 L 240,345
+                 L 225,385 L 168,400 L 126,400 L 111,390 L 63,395
+                 L 69,345 L 45,315 L 33,290 L 18,235
+                 L 21,185 L 45,165 L 42,115 L 51,90 Z"
+          fill="rgba(245,158,11,0.07)" stroke="rgba(245,158,11,0.38)" stroke-width="1.5" stroke-linejoin="round"/>
 
-        <!-- POLSKA -->
-        <path d="M248,62 L292,52 L328,60 L368,50 L408,62 L422,88 L426,114 L415,140 L425,166 L420,196 L404,216 L414,242 L398,262 L377,267 L362,288 L342,292 L321,282 L295,292 L274,282 L253,292 L238,280 L242,254 L232,232 L238,206 L228,180 L238,154 L228,128 L238,102 Z"
-          fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
-        <text x="328" y="180" fill="rgba(255,255,255,0.35)" font-size="12" font-weight="800" font-family="Inter,sans-serif" text-anchor="middle" letter-spacing="1">POLSKA</text>
+        <!-- POLSKA — uproszczony zarys geograficzny (Odra-Nysa, Bałtyk, Belarus, Ukraina, Tatry) -->
+        <path d="M 261,75 L 303,65 L 393,55 L 522,65
+                 L 543,170 L 519,285
+                 L 435,315 L 393,288 L 375,275 L 306,230
+                 L 285,220 L 270,160 L 261,75 Z"
+          fill="rgba(255,255,255,0.035)" stroke="rgba(255,255,255,0.22)" stroke-width="1.5" stroke-linejoin="round"/>
 
-        <!-- Linie tras animowane -->
-        <line class="route-animated" id="line-poznan-berlin" x1="262" y1="108" x2="155" y2="88" stroke="#F59E0B" stroke-width="2" opacity="0.8" marker-end="url(#arr)"/>
-        <line class="route-animated" id="line-wroclaw-berlin" x1="262" y1="205" x2="110" y2="108" stroke="#F59E0B" stroke-width="2" opacity="0.6" marker-end="url(#arr)"/>
-        <line class="route-animated" id="line-warszawa-berlin" x1="272" y1="135" x2="85" y2="165" stroke="#F59E0B" stroke-width="2" opacity="0.5" marker-end="url(#arr)"/>
-        <line class="route-animated" id="line-krakow-frankfurt" x1="298" y1="240" x2="75" y2="178" stroke="#F59E0B" stroke-width="2" opacity="0.4" marker-end="url(#arr)"/>
+        <!-- Linie tras animowane (Polska → Niemcy) -->
+        <line class="route-animated" x1="342" y1="155" x2="237" y2="150" stroke="#F59E0B" stroke-width="1.8" opacity="0.9" marker-end="url(#arr)"/>
+        <line class="route-animated" x1="345" y1="220" x2="237" y2="150" stroke="#F59E0B" stroke-width="1.5" opacity="0.7" marker-end="url(#arr)"/>
+        <line class="route-animated" x1="465" y1="165" x2="237" y2="150" stroke="#F59E0B" stroke-width="1.5" opacity="0.6" marker-end="url(#arr)"/>
+        <line class="route-animated" x1="435" y1="270" x2="96"  y2="270" stroke="#F59E0B" stroke-width="1.5" opacity="0.55" marker-end="url(#arr)"/>
+        <line class="route-animated" x1="342" y1="155" x2="135" y2="95"  stroke="#F59E0B" stroke-width="1.2" opacity="0.4" marker-end="url(#arr)"/>
+        <line class="route-animated" x1="465" y1="165" x2="135" y2="95"  stroke="#F59E0B" stroke-width="1.2" opacity="0.35" marker-end="url(#arr)"/>
+        <line class="route-animated" x1="435" y1="270" x2="183" y2="370" stroke="#F59E0B" stroke-width="1.2" opacity="0.4" marker-end="url(#arr)"/>
 
         <!-- Miasta polskie -->
-        <g id="dot-poznan">
-          <circle cx="262" cy="108" r="6" fill="#F59E0B"/>
-          <circle cx="262" cy="108" r="11" fill="none" stroke="#F59E0B" stroke-width="1" opacity="0.35"/>
-          <text x="275" y="105" fill="#F1F5F9" font-size="11" font-weight="700" font-family="Inter,sans-serif">Poznań</text>
+        <g>
+          <circle cx="342" cy="155" r="5.5" fill="#F59E0B"/>
+          <circle cx="342" cy="155" r="10" fill="none" stroke="#F59E0B" stroke-width="1" opacity="0.3"/>
+          <text x="351" y="152" fill="#F1F5F9" font-size="11" font-weight="700" font-family="Inter,sans-serif">Poznań</text>
         </g>
-        <g id="dot-wroclaw">
-          <circle cx="262" cy="205" r="6" fill="#F59E0B"/>
-          <circle cx="262" cy="205" r="11" fill="none" stroke="#F59E0B" stroke-width="1" opacity="0.35"/>
-          <text x="275" y="202" fill="#F1F5F9" font-size="11" font-weight="700" font-family="Inter,sans-serif">Wrocław</text>
+        <g>
+          <circle cx="345" cy="220" r="5.5" fill="#F59E0B"/>
+          <circle cx="345" cy="220" r="10" fill="none" stroke="#F59E0B" stroke-width="1" opacity="0.3"/>
+          <text x="354" y="217" fill="#F1F5F9" font-size="11" font-weight="700" font-family="Inter,sans-serif">Wrocław</text>
         </g>
-        <g id="dot-warszawa">
-          <circle cx="272" cy="135" r="6" fill="#F59E0B"/>
-          <circle cx="272" cy="135" r="11" fill="none" stroke="#F59E0B" stroke-width="1" opacity="0.35"/>
-          <text x="285" y="132" fill="#F1F5F9" font-size="11" font-weight="700" font-family="Inter,sans-serif">Warszawa</text>
+        <g>
+          <circle cx="465" cy="165" r="5.5" fill="#F59E0B"/>
+          <circle cx="465" cy="165" r="10" fill="none" stroke="#F59E0B" stroke-width="1" opacity="0.3"/>
+          <text x="474" y="162" fill="#F1F5F9" font-size="11" font-weight="700" font-family="Inter,sans-serif">Warszawa</text>
         </g>
-        <g id="dot-krakow">
-          <circle cx="298" cy="240" r="6" fill="#F59E0B"/>
-          <circle cx="298" cy="240" r="11" fill="none" stroke="#F59E0B" stroke-width="1" opacity="0.35"/>
-          <text x="311" y="237" fill="#F1F5F9" font-size="11" font-weight="700" font-family="Inter,sans-serif">Kraków</text>
+        <g>
+          <circle cx="435" cy="270" r="5.5" fill="#F59E0B"/>
+          <circle cx="435" cy="270" r="10" fill="none" stroke="#F59E0B" stroke-width="1" opacity="0.3"/>
+          <text x="444" y="267" fill="#F1F5F9" font-size="11" font-weight="700" font-family="Inter,sans-serif">Kraków</text>
         </g>
 
         <!-- Miasta niemieckie -->
         <g>
-          <circle cx="155" cy="88" r="5" fill="white" opacity="0.8"/>
-          <text x="148" y="83" fill="#94A3B8" font-size="10" font-weight="600" font-family="Inter,sans-serif" text-anchor="end">Berlin</text>
+          <circle cx="237" cy="150" r="5" fill="white" opacity="0.85"/>
+          <text x="230" y="145" fill="#94A3B8" font-size="10" font-weight="600" font-family="Inter,sans-serif" text-anchor="end">Berlin</text>
         </g>
         <g>
-          <circle cx="100" cy="62" r="5" fill="white" opacity="0.6"/>
-          <text x="93" y="57" fill="#94A3B8" font-size="10" font-weight="600" font-family="Inter,sans-serif" text-anchor="end">Hamburg</text>
+          <circle cx="135" cy="95" r="4.5" fill="white" opacity="0.7"/>
+          <text x="128" y="91" fill="#94A3B8" font-size="10" font-weight="600" font-family="Inter,sans-serif" text-anchor="end">Hamburg</text>
         </g>
         <g>
-          <circle cx="75" cy="178" r="5" fill="white" opacity="0.6"/>
-          <text x="68" y="173" fill="#94A3B8" font-size="10" font-weight="600" font-family="Inter,sans-serif" text-anchor="end">Frankfurt</text>
+          <circle cx="96" cy="270" r="4.5" fill="white" opacity="0.7"/>
+          <text x="89" y="266" fill="#94A3B8" font-size="10" font-weight="600" font-family="Inter,sans-serif" text-anchor="end">Frankfurt</text>
         </g>
         <g>
-          <circle cx="130" cy="250" r="5" fill="white" opacity="0.6"/>
-          <text x="123" y="245" fill="#94A3B8" font-size="10" font-weight="600" font-family="Inter,sans-serif" text-anchor="end">Monachium</text>
+          <circle cx="183" cy="370" r="4.5" fill="white" opacity="0.7"/>
+          <text x="176" y="366" fill="#94A3B8" font-size="10" font-weight="600" font-family="Inter,sans-serif" text-anchor="end">Monachium</text>
         </g>
 
-        <!-- Granica PL-DE -->
-        <line x1="234" y1="62" x2="240" y2="290" stroke="rgba(255,255,255,0.12)" stroke-width="1" stroke-dasharray="4,4"/>
-        <text x="237" y="310" fill="rgba(255,255,255,0.2)" font-size="8" font-family="Inter,sans-serif" text-anchor="middle">GRANICA</text>
+        <!-- Etykiety krajów -->
+        <text x="128" y="200" fill="rgba(245,158,11,0.45)" font-size="13" font-weight="800" font-family="Inter,sans-serif" text-anchor="middle" letter-spacing="2">NIEMCY</text>
+        <text x="405" y="185" fill="rgba(255,255,255,0.22)" font-size="13" font-weight="800" font-family="Inter,sans-serif" text-anchor="middle" letter-spacing="2">POLSKA</text>
       </svg>
     </div>
 
