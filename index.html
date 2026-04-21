@@ -343,11 +343,17 @@ footer{background:#060d1a;border-top:1px solid rgba(255,255,255,.05);padding:48p
       <div style="display:flex;flex-direction:column;gap:16px">
         <div class="form-group">
           <label>Skąd (miasto w Polsce)</label>
-          <input type="text" id="calc-from" placeholder="np. Warszawa, Kraków, Wrocław" onkeydown="if(event.key==='Enter')calcPrice()" style="width:100%;padding:12px 16px;background:var(--input);border:1px solid rgba(255,255,255,.08);border-radius:10px;color:var(--text);font-size:.95rem;font-family:inherit;outline:none;box-sizing:border-box"/>
+          <div style="display:grid;grid-template-columns:1fr auto;gap:8px">
+            <input type="text" id="calc-from" placeholder="np. Warszawa, Kraków" onkeydown="if(event.key==='Enter')calcPrice()" style="padding:12px 16px;background:var(--input);border:1px solid rgba(255,255,255,.08);border-radius:10px;color:var(--text);font-size:.95rem;font-family:inherit;outline:none;box-sizing:border-box"/>
+            <input type="text" id="calc-from-zip" placeholder="00-000" maxlength="6" onkeydown="if(event.key==='Enter')calcPrice()" style="width:90px;padding:12px 12px;background:var(--input);border:1px solid rgba(255,255,255,.08);border-radius:10px;color:var(--text);font-size:.95rem;font-family:inherit;outline:none;box-sizing:border-box;text-align:center"/>
+          </div>
         </div>
         <div class="form-group">
           <label>Dokąd (miasto w Niemczech)</label>
-          <input type="text" id="calc-to" placeholder="np. Berlin, Hamburg, Monachium" onkeydown="if(event.key==='Enter')calcPrice()" style="width:100%;padding:12px 16px;background:var(--input);border:1px solid rgba(255,255,255,.08);border-radius:10px;color:var(--text);font-size:.95rem;font-family:inherit;outline:none;box-sizing:border-box"/>
+          <div style="display:grid;grid-template-columns:1fr auto;gap:8px">
+            <input type="text" id="calc-to" placeholder="np. Berlin, Hamburg" onkeydown="if(event.key==='Enter')calcPrice()" style="padding:12px 16px;background:var(--input);border:1px solid rgba(255,255,255,.08);border-radius:10px;color:var(--text);font-size:.95rem;font-family:inherit;outline:none;box-sizing:border-box"/>
+            <input type="text" id="calc-to-zip" placeholder="10000" maxlength="5" onkeydown="if(event.key==='Enter')calcPrice()" style="width:90px;padding:12px 12px;background:var(--input);border:1px solid rgba(255,255,255,.08);border-radius:10px;color:var(--text);font-size:.95rem;font-family:inherit;outline:none;box-sizing:border-box;text-align:center"/>
+          </div>
         </div>
         <button id="calc-btn" onclick="calcPrice()" style="padding:13px;background:var(--gold);color:#000;font-weight:800;font-size:.95rem;font-family:inherit;border:none;border-radius:10px;cursor:pointer;transition:opacity .2s">Oblicz cenę →</button>
       </div>
@@ -790,8 +796,9 @@ footer{background:#060d1a;border-top:1px solid rgba(255,255,255,.05);padding:48p
     return null;
   }
 
-  async function geocode(city, country) {
-    const url = 'https://nominatim.openstreetmap.org/search?q=' + encodeURIComponent(city + ', ' + country) + '&format=json&limit=1&accept-language=pl';
+  async function geocode(city, zip, country) {
+    const q = zip ? (zip + ' ' + city + ', ' + country) : (city + ', ' + country);
+    const url = 'https://nominatim.openstreetmap.org/search?q=' + encodeURIComponent(q) + '&format=json&limit=1&accept-language=pl';
     const r = await fetch(url, {headers:{'User-Agent':'marcelbus.pl/1.0'}});
     const d = await r.json();
     if (!d.length) return null;
@@ -801,6 +808,8 @@ footer{background:#060d1a;border-top:1px solid rgba(255,255,255,.05);padding:48p
   async function calcPrice() {
     const fromVal = document.getElementById('calc-from').value.trim();
     const toVal   = document.getElementById('calc-to').value.trim();
+    const fromZip = document.getElementById('calc-from-zip').value.trim();
+    const toZip   = document.getElementById('calc-to-zip').value.trim();
     const result  = document.getElementById('calc-result');
     const placeholder = document.getElementById('calc-placeholder');
     const loading = document.getElementById('calc-loading');
@@ -817,7 +826,7 @@ footer{background:#060d1a;border-top:1px solid rgba(255,255,255,.05);padding:48p
     btn.style.opacity = '.6';
 
     try {
-      const [from, to] = await Promise.all([geocode(fromVal,'Polska'), geocode(toVal,'Niemcy')]);
+      const [from, to] = await Promise.all([geocode(fromVal,fromZip,'Polska'), geocode(toVal,toZip,'Niemcy')]);
       loading.style.display='none';
       btn.disabled = false;
       btn.style.opacity = '1';
