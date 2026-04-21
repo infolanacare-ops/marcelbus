@@ -342,68 +342,43 @@ footer{background:#060d1a;border-top:1px solid rgba(255,255,255,.05);padding:48p
       <div style="font-size:.72rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:20px">Kalkulator ceny</div>
       <div style="display:flex;flex-direction:column;gap:16px">
         <div class="form-group">
-          <label>Skąd</label>
-          <select id="calc-from" onchange="calcPrice()">
-            <option value="">Wybierz miasto</option>
-            <option value="poznan">Poznań</option>
-            <option value="wroclaw">Wrocław</option>
-            <option value="warszawa">Warszawa</option>
-            <option value="krakow">Kraków</option>
-          </select>
+          <label>Skąd (miasto w Polsce)</label>
+          <input type="text" id="calc-from" placeholder="np. Warszawa, Kraków, Wrocław" onkeydown="if(event.key==='Enter')calcPrice()" style="width:100%;padding:12px 16px;background:var(--input);border:1px solid rgba(255,255,255,.08);border-radius:10px;color:var(--text);font-size:.95rem;font-family:inherit;outline:none;box-sizing:border-box"/>
         </div>
         <div class="form-group">
-          <label>Dokąd</label>
-          <select id="calc-to" onchange="calcPrice()">
-            <option value="">Wybierz miasto</option>
-            <option value="berlin">Berlin</option>
-            <option value="hamburg">Hamburg</option>
-            <option value="frankfurt">Frankfurt</option>
-            <option value="monachium">Monachium</option>
-          </select>
+          <label>Dokąd (miasto w Niemczech)</label>
+          <input type="text" id="calc-to" placeholder="np. Berlin, Hamburg, Monachium" onkeydown="if(event.key==='Enter')calcPrice()" style="width:100%;padding:12px 16px;background:var(--input);border:1px solid rgba(255,255,255,.08);border-radius:10px;color:var(--text);font-size:.95rem;font-family:inherit;outline:none;box-sizing:border-box"/>
         </div>
-        <div class="form-group">
-          <label>Liczba osób</label>
-          <select id="calc-persons" onchange="calcPrice()">
-            <option value="1">1 osoba</option>
-            <option value="2">2 osoby</option>
-            <option value="3">3 osoby</option>
-            <option value="4">4 osoby</option>
-            <option value="5">5 osób</option>
-            <option value="6">6 osób</option>
-            <option value="7">7 osób</option>
-            <option value="8">8 osób</option>
-            <option value="9">9 osób</option>
-          </select>
-        </div>
+        <button id="calc-btn" onclick="calcPrice()" style="padding:13px;background:var(--gold);color:#000;font-weight:800;font-size:.95rem;font-family:inherit;border:none;border-radius:10px;cursor:pointer;transition:opacity .2s">Oblicz cenę →</button>
       </div>
 
       <!-- WYNIK -->
       <div id="calc-result" style="display:none;margin-top:24px;background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.25);border-radius:14px;padding:24px">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
           <div>
-            <div id="calc-route-label" style="font-size:.82rem;color:var(--muted);margin-bottom:4px"></div>
-            <div id="calc-time-label" style="font-size:.78rem;color:var(--muted)"></div>
+            <div id="calc-route-label" style="font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:4px"></div>
+            <div id="calc-dist-label" style="font-size:.78rem;color:var(--muted)"></div>
           </div>
           <div style="text-align:right">
-            <div style="font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Łącznie</div>
+            <div style="font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Cena / os.</div>
             <div id="calc-total" style="font-size:2rem;font-weight:900;color:var(--gold);line-height:1"></div>
           </div>
         </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-top:14px;border-top:1px solid rgba(245,158,11,.15)">
-          <div>
-            <div style="font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px">Za osobę</div>
-            <div id="calc-per-person" style="font-weight:700;color:var(--text)"></div>
-          </div>
-          <div>
-            <div style="font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px">Bilet powrotny</div>
-            <div id="calc-return" style="font-weight:700;color:var(--green)"></div>
-          </div>
+        <div style="padding-top:14px;border-top:1px solid rgba(245,158,11,.15)">
+          <div style="font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px">Bilet powrotny (−15%)</div>
+          <div id="calc-return" style="font-weight:700;color:#4ade80"></div>
         </div>
         <a href="#rezerwacja" class="btn-primary" style="display:flex;justify-content:center;margin-top:20px">Zarezerwuj ten przejazd →</a>
       </div>
 
+      <div id="calc-loading" style="display:none;margin-top:24px;text-align:center;padding:32px;color:var(--muted);font-size:.88rem">
+        ⏳ Szukam trasy...
+      </div>
+      <div id="calc-error" style="display:none;margin-top:24px;text-align:center;padding:20px;border:1px solid rgba(239,68,68,.3);border-radius:14px;color:#f87171;font-size:.88rem">
+        Nie znaleziono miasta. Sprawdź pisownię i spróbuj ponownie.
+      </div>
       <div id="calc-placeholder" style="margin-top:24px;text-align:center;padding:32px;border:1px dashed rgba(255,255,255,.08);border-radius:14px;color:var(--muted);font-size:.88rem">
-        Wybierz miasto wyjazdu i cel podróży
+        Wpisz miasto wyjazdu i cel podróży
       </div>
     </div>
 
@@ -800,46 +775,78 @@ footer{background:#060d1a;border-top:1px solid rgba(255,255,255,.05);padding:48p
     document.getElementById('osoba4').style.display = val >= 4 ? 'block' : 'none';
   }
 
-  // Kalkulator ceny
-  const PRICES = {
-    'poznan-berlin': {price:180, time:'~3h 30min'},
-    'poznan-hamburg': {price:220, time:'~5h 00min'},
-    'poznan-frankfurt': {price:280, time:'~7h 00min'},
-    'poznan-monachium': {price:320, time:'~9h 00min'},
-    'wroclaw-berlin': {price:220, time:'~4h 00min'},
-    'wroclaw-hamburg': {price:260, time:'~5h 30min'},
-    'wroclaw-frankfurt': {price:300, time:'~6h 30min'},
-    'wroclaw-monachium': {price:330, time:'~8h 00min'},
-    'warszawa-berlin': {price:250, time:'~7h 30min'},
-    'warszawa-hamburg': {price:300, time:'~9h 00min'},
-    'warszawa-frankfurt': {price:370, time:'~11h 00min'},
-    'warszawa-monachium': {price:390, time:'~12h 00min'},
-    'krakow-berlin': {price:300, time:'~8h 30min'},
-    'krakow-hamburg': {price:350, time:'~10h 00min'},
-    'krakow-frankfurt': {price:350, time:'~9h 00min'},
-    'krakow-monachium': {price:320, time:'~7h 30min'},
-  };
-  const CITY_NAMES = {poznan:'Poznań',wroclaw:'Wrocław',warszawa:'Warszawa',krakow:'Kraków',berlin:'Berlin',hamburg:'Hamburg',frankfurt:'Frankfurt',monachium:'Monachium'};
+  // Kalkulator ceny — oparty na odległości (Nominatim + haversine)
+  function haversine(lat1, lon1, lat2, lon2) {
+    const R = 6371, r = Math.PI/180;
+    const dLat = (lat2-lat1)*r, dLon = (lon2-lon1)*r;
+    const a = Math.sin(dLat/2)**2 + Math.cos(lat1*r)*Math.cos(lat2*r)*Math.sin(dLon/2)**2;
+    return Math.round(R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)));
+  }
 
-  function calcPrice() {
-    const from = document.getElementById('calc-from').value;
-    const to = document.getElementById('calc-to').value;
-    const persons = parseInt(document.getElementById('calc-persons').value);
-    const result = document.getElementById('calc-result');
+  function getPriceForKm(km) {
+    if (km <= 800)  return 350;
+    if (km <= 1000) return 450;
+    if (km <= 1200) return 500;
+    if (km <= 1400) return 550;
+    return null;
+  }
+
+  async function geocode(city, country) {
+    const url = 'https://nominatim.openstreetmap.org/search?q=' + encodeURIComponent(city + ', ' + country) + '&format=json&limit=1&accept-language=pl';
+    const r = await fetch(url, {headers:{'User-Agent':'marcelbus.pl/1.0'}});
+    const d = await r.json();
+    if (!d.length) return null;
+    return {lat: parseFloat(d[0].lat), lon: parseFloat(d[0].lon), name: d[0].display_name.split(',')[0].trim()};
+  }
+
+  async function calcPrice() {
+    const fromVal = document.getElementById('calc-from').value.trim();
+    const toVal   = document.getElementById('calc-to').value.trim();
+    const result  = document.getElementById('calc-result');
     const placeholder = document.getElementById('calc-placeholder');
-    if (!from || !to) { result.style.display='none'; placeholder.style.display='block'; return; }
-    const key = from + '-' + to;
-    const data = PRICES[key];
-    if (!data) { result.style.display='none'; placeholder.style.display='block'; return; }
-    const total = data.price * persons;
-    const returnPrice = Math.round(total * 1.85);
-    document.getElementById('calc-route-label').textContent = CITY_NAMES[from] + ' → ' + CITY_NAMES[to];
-    document.getElementById('calc-time-label').textContent = 'Czas przejazdu: ' + data.time;
-    document.getElementById('calc-total').textContent = total + ' zł';
-    document.getElementById('calc-per-person').textContent = data.price + ' zł / os.';
-    document.getElementById('calc-return').textContent = 'tam+powrót: ' + returnPrice + ' zł';
-    result.style.display='block';
+    const loading = document.getElementById('calc-loading');
+    const errBox  = document.getElementById('calc-error');
+    const btn     = document.getElementById('calc-btn');
+
+    if (!fromVal || !toVal) return;
+
+    result.style.display='none';
     placeholder.style.display='none';
+    errBox.style.display='none';
+    loading.style.display='block';
+    btn.disabled = true;
+    btn.style.opacity = '.6';
+
+    try {
+      const [from, to] = await Promise.all([geocode(fromVal,'Polska'), geocode(toVal,'Niemcy')]);
+      loading.style.display='none';
+      btn.disabled = false;
+      btn.style.opacity = '1';
+
+      if (!from || !to) { errBox.style.display='block'; return; }
+
+      const straight = haversine(from.lat, from.lon, to.lat, to.lon);
+      const km = Math.round(straight * 1.3); // przybliżona trasa drogowa
+      const price = getPriceForKm(km);
+
+      document.getElementById('calc-route-label').textContent = from.name + ' → ' + to.name;
+      document.getElementById('calc-dist-label').textContent  = 'Trasa ~' + km + ' km';
+
+      if (!price) {
+        document.getElementById('calc-total').textContent  = 'Wycena';
+        document.getElementById('calc-return').textContent = 'Zadzwoń: +48 787 438 177';
+      } else {
+        const ret = Math.round(price * 0.85);
+        document.getElementById('calc-total').textContent  = price + ' zł';
+        document.getElementById('calc-return').textContent = ret + ' zł / os. (tam + powrót)';
+      }
+      result.style.display='block';
+    } catch(e) {
+      loading.style.display='none';
+      btn.disabled = false;
+      btn.style.opacity = '1';
+      errBox.style.display='block';
+    }
   }
 
   // FAQ accordion
