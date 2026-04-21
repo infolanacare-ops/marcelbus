@@ -222,6 +222,7 @@ footer{background:#060d1a;border-top:1px solid rgba(255,255,255,.05);padding:48p
   .schedule{padding:60px 20px}
   .pricing{padding:60px 20px}
   .routes-grid{grid-template-columns:1fr}
+  #trasy>div:last-child{grid-template-columns:1fr!important}
   .why-grid{grid-template-columns:repeat(2,1fr)}
   .pricing-grid{grid-template-columns:1fr}
   .reservation-inner{grid-template-columns:1fr}
@@ -329,115 +330,163 @@ footer{background:#060d1a;border-top:1px solid rgba(255,255,255,.05);padding:48p
   </div>
 </div>
 
-<!-- TRASY -->
-<section class="routes" id="trasy">
-  <div class="section-label">Dokąd jedziemy</div>
-  <h2 class="section-title">Nasze trasy</h2>
-  <p class="section-sub">Regularne kursy z głównych miast Polski do Niemiec. Odbieramy pasażerów z domu i dowozimy pod wskazany adres.</p>
-  <div class="routes-grid">
+<!-- KALKULATOR + MAPA -->
+<section style="padding:90px 48px;max-width:1280px;margin:0 auto" id="trasy">
+  <div class="section-label">Trasy i ceny</div>
+  <h2 class="section-title">Skąd i dokąd?</h2>
+  <p class="section-sub" style="margin-bottom:48px">Oblicz cenę przejazdu i sprawdź trasę na mapie.</p>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start">
 
-    <div class="route-card">
-      <div class="route-header">
-        <div class="route-from">
-          <div class="route-city">Warszawa</div>
-          <div class="route-country">🇵🇱 Polska</div>
+    <!-- KALKULATOR -->
+    <div style="background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:20px;padding:36px">
+      <div style="font-size:.72rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:20px">Kalkulator ceny</div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div class="form-group">
+          <label>Skąd</label>
+          <select id="calc-from" onchange="calcPrice()">
+            <option value="">Wybierz miasto</option>
+            <option value="poznan">Poznań</option>
+            <option value="wroclaw">Wrocław</option>
+            <option value="warszawa">Warszawa</option>
+            <option value="krakow">Kraków</option>
+          </select>
         </div>
-        <div class="route-mid">
-          <div class="route-line">
-            <div class="route-dot"></div>
-            <div class="route-dash"></div>
-            <div class="route-dot"></div>
-          </div>
-          <div class="route-time-badge">~7h 30min</div>
+        <div class="form-group">
+          <label>Dokąd</label>
+          <select id="calc-to" onchange="calcPrice()">
+            <option value="">Wybierz miasto</option>
+            <option value="berlin">Berlin</option>
+            <option value="hamburg">Hamburg</option>
+            <option value="frankfurt">Frankfurt</option>
+            <option value="monachium">Monachium</option>
+          </select>
         </div>
-        <div class="route-to" style="text-align:right">
-          <div class="route-city">Berlin</div>
-          <div class="route-country">🇩🇪 Niemcy</div>
+        <div class="form-group">
+          <label>Liczba osób</label>
+          <select id="calc-persons" onchange="calcPrice()">
+            <option value="1">1 osoba</option>
+            <option value="2">2 osoby</option>
+            <option value="3">3 osoby</option>
+            <option value="4">4 osoby</option>
+            <option value="5">5 osób</option>
+            <option value="6">6 osób</option>
+            <option value="7">7 osób</option>
+            <option value="8">8 osób</option>
+            <option value="9">9 osób</option>
+          </select>
         </div>
       </div>
-      <div class="route-details">
-        <div class="rd-item"><div class="rd-label">Wyjazd</div><div class="rd-value">05:30</div></div>
-        <div class="rd-item"><div class="rd-label">Przyjazd</div><div class="rd-value">13:00</div></div>
-        <div class="rd-item"><div class="rd-label">Cena od</div><div class="rd-value gold">250 zł</div></div>
+
+      <!-- WYNIK -->
+      <div id="calc-result" style="display:none;margin-top:24px;background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.25);border-radius:14px;padding:24px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+          <div>
+            <div id="calc-route-label" style="font-size:.82rem;color:var(--muted);margin-bottom:4px"></div>
+            <div id="calc-time-label" style="font-size:.78rem;color:var(--muted)"></div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Łącznie</div>
+            <div id="calc-total" style="font-size:2rem;font-weight:900;color:var(--gold);line-height:1"></div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-top:14px;border-top:1px solid rgba(245,158,11,.15)">
+          <div>
+            <div style="font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px">Za osobę</div>
+            <div id="calc-per-person" style="font-weight:700;color:var(--text)"></div>
+          </div>
+          <div>
+            <div style="font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.5px">Bilet powrotny</div>
+            <div id="calc-return" style="font-weight:700;color:var(--green)"></div>
+          </div>
+        </div>
+        <a href="#rezerwacja" class="btn-primary" style="display:flex;justify-content:center;margin-top:20px">Zarezerwuj ten przejazd →</a>
+      </div>
+
+      <div id="calc-placeholder" style="margin-top:24px;text-align:center;padding:32px;border:1px dashed rgba(255,255,255,.08);border-radius:14px;color:var(--muted);font-size:.88rem">
+        Wybierz miasto wyjazdu i cel podróży
       </div>
     </div>
 
-    <div class="route-card">
-      <div class="route-header">
-        <div class="route-from">
-          <div class="route-city">Wrocław</div>
-          <div class="route-country">🇵🇱 Polska</div>
-        </div>
-        <div class="route-mid">
-          <div class="route-line">
-            <div class="route-dot"></div>
-            <div class="route-dash"></div>
-            <div class="route-dot"></div>
-          </div>
-          <div class="route-time-badge">~4h 00min</div>
-        </div>
-        <div class="route-to" style="text-align:right">
-          <div class="route-city">Berlin</div>
-          <div class="route-country">🇩🇪 Niemcy</div>
-        </div>
-      </div>
-      <div class="route-details">
-        <div class="rd-item"><div class="rd-label">Wyjazd</div><div class="rd-value">07:00</div></div>
-        <div class="rd-item"><div class="rd-label">Przyjazd</div><div class="rd-value">11:00</div></div>
-        <div class="rd-item"><div class="rd-label">Cena od</div><div class="rd-value gold">220 zł</div></div>
-      </div>
-    </div>
+    <!-- MAPA -->
+    <div style="background:var(--card2);border:1px solid rgba(245,158,11,.2);border-radius:20px;padding:28px">
+      <div style="font-size:.72rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:16px">Mapa tras</div>
+      <svg viewBox="0 0 500 460" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto">
+        <defs>
+          <radialGradient id="glow2" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#F59E0B" stop-opacity="0.1"/>
+            <stop offset="100%" stop-color="#F59E0B" stop-opacity="0"/>
+          </radialGradient>
+          <marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="#F59E0B" opacity="0.9"/>
+          </marker>
+          <style>
+            .route-animated { stroke-dasharray: 8 5; animation: dash 2s linear infinite; }
+            @keyframes dash { to { stroke-dashoffset: -52; } }
+          </style>
+        </defs>
 
-    <div class="route-card">
-      <div class="route-header">
-        <div class="route-from">
-          <div class="route-city">Poznań</div>
-          <div class="route-country">🇵🇱 Polska</div>
-        </div>
-        <div class="route-mid">
-          <div class="route-line">
-            <div class="route-dot"></div>
-            <div class="route-dash"></div>
-            <div class="route-dot"></div>
-          </div>
-          <div class="route-time-badge">~3h 30min</div>
-        </div>
-        <div class="route-to" style="text-align:right">
-          <div class="route-city">Berlin</div>
-          <div class="route-country">🇩🇪 Niemcy</div>
-        </div>
-      </div>
-      <div class="route-details">
-        <div class="rd-item"><div class="rd-label">Wyjazd</div><div class="rd-value">06:30</div></div>
-        <div class="rd-item"><div class="rd-label">Przyjazd</div><div class="rd-value">10:00</div></div>
-        <div class="rd-item"><div class="rd-label">Cena od</div><div class="rd-value gold">180 zł</div></div>
-      </div>
-    </div>
+        <ellipse cx="250" cy="230" rx="180" ry="160" fill="url(#glow2)"/>
 
-    <div class="route-card">
-      <div class="route-header">
-        <div class="route-from">
-          <div class="route-city">Kraków</div>
-          <div class="route-country">🇵🇱 Polska</div>
-        </div>
-        <div class="route-mid">
-          <div class="route-line">
-            <div class="route-dot"></div>
-            <div class="route-dash"></div>
-            <div class="route-dot"></div>
-          </div>
-          <div class="route-time-badge">~9h 00min</div>
-        </div>
-        <div class="route-to" style="text-align:right">
-          <div class="route-city">Frankfurt</div>
-          <div class="route-country">🇩🇪 Niemcy</div>
-        </div>
-      </div>
-      <div class="route-details">
-        <div class="rd-item"><div class="rd-label">Wyjazd</div><div class="rd-value">04:00</div></div>
-        <div class="rd-item"><div class="rd-label">Przyjazd</div><div class="rd-value">13:00</div></div>
-        <div class="rd-item"><div class="rd-label">Cena od</div><div class="rd-value gold">350 zł</div></div>
-      </div>
+        <!-- NIEMCY -->
+        <path d="M85,45 L125,35 L165,48 L195,38 L215,58 L205,82 L220,105 L208,132 L224,158 L212,185 L196,200 L186,228 L170,243 L154,252 L142,268 L126,262 L110,272 L97,260 L87,245 L72,240 L58,224 L53,203 L63,182 L53,162 L58,136 L48,110 L58,86 L68,66 Z"
+          fill="rgba(245,158,11,0.05)" stroke="rgba(245,158,11,0.3)" stroke-width="1.5"/>
+        <text x="135" y="158" fill="rgba(245,158,11,0.6)" font-size="12" font-weight="800" font-family="Inter,sans-serif" text-anchor="middle" letter-spacing="1">NIEMCY</text>
+
+        <!-- POLSKA -->
+        <path d="M248,62 L292,52 L328,60 L368,50 L408,62 L422,88 L426,114 L415,140 L425,166 L420,196 L404,216 L414,242 L398,262 L377,267 L362,288 L342,292 L321,282 L295,292 L274,282 L253,292 L238,280 L242,254 L232,232 L238,206 L228,180 L238,154 L228,128 L238,102 Z"
+          fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+        <text x="328" y="180" fill="rgba(255,255,255,0.35)" font-size="12" font-weight="800" font-family="Inter,sans-serif" text-anchor="middle" letter-spacing="1">POLSKA</text>
+
+        <!-- Linie tras animowane -->
+        <line class="route-animated" id="line-poznan-berlin" x1="262" y1="108" x2="155" y2="88" stroke="#F59E0B" stroke-width="2" opacity="0.8" marker-end="url(#arr)"/>
+        <line class="route-animated" id="line-wroclaw-berlin" x1="262" y1="205" x2="110" y2="108" stroke="#F59E0B" stroke-width="2" opacity="0.6" marker-end="url(#arr)"/>
+        <line class="route-animated" id="line-warszawa-berlin" x1="272" y1="135" x2="85" y2="165" stroke="#F59E0B" stroke-width="2" opacity="0.5" marker-end="url(#arr)"/>
+        <line class="route-animated" id="line-krakow-frankfurt" x1="298" y1="240" x2="75" y2="178" stroke="#F59E0B" stroke-width="2" opacity="0.4" marker-end="url(#arr)"/>
+
+        <!-- Miasta polskie -->
+        <g id="dot-poznan">
+          <circle cx="262" cy="108" r="6" fill="#F59E0B"/>
+          <circle cx="262" cy="108" r="11" fill="none" stroke="#F59E0B" stroke-width="1" opacity="0.35"/>
+          <text x="275" y="105" fill="#F1F5F9" font-size="11" font-weight="700" font-family="Inter,sans-serif">Poznań</text>
+        </g>
+        <g id="dot-wroclaw">
+          <circle cx="262" cy="205" r="6" fill="#F59E0B"/>
+          <circle cx="262" cy="205" r="11" fill="none" stroke="#F59E0B" stroke-width="1" opacity="0.35"/>
+          <text x="275" y="202" fill="#F1F5F9" font-size="11" font-weight="700" font-family="Inter,sans-serif">Wrocław</text>
+        </g>
+        <g id="dot-warszawa">
+          <circle cx="272" cy="135" r="6" fill="#F59E0B"/>
+          <circle cx="272" cy="135" r="11" fill="none" stroke="#F59E0B" stroke-width="1" opacity="0.35"/>
+          <text x="285" y="132" fill="#F1F5F9" font-size="11" font-weight="700" font-family="Inter,sans-serif">Warszawa</text>
+        </g>
+        <g id="dot-krakow">
+          <circle cx="298" cy="240" r="6" fill="#F59E0B"/>
+          <circle cx="298" cy="240" r="11" fill="none" stroke="#F59E0B" stroke-width="1" opacity="0.35"/>
+          <text x="311" y="237" fill="#F1F5F9" font-size="11" font-weight="700" font-family="Inter,sans-serif">Kraków</text>
+        </g>
+
+        <!-- Miasta niemieckie -->
+        <g>
+          <circle cx="155" cy="88" r="5" fill="white" opacity="0.8"/>
+          <text x="148" y="83" fill="#94A3B8" font-size="10" font-weight="600" font-family="Inter,sans-serif" text-anchor="end">Berlin</text>
+        </g>
+        <g>
+          <circle cx="100" cy="62" r="5" fill="white" opacity="0.6"/>
+          <text x="93" y="57" fill="#94A3B8" font-size="10" font-weight="600" font-family="Inter,sans-serif" text-anchor="end">Hamburg</text>
+        </g>
+        <g>
+          <circle cx="75" cy="178" r="5" fill="white" opacity="0.6"/>
+          <text x="68" y="173" fill="#94A3B8" font-size="10" font-weight="600" font-family="Inter,sans-serif" text-anchor="end">Frankfurt</text>
+        </g>
+        <g>
+          <circle cx="130" cy="250" r="5" fill="white" opacity="0.6"/>
+          <text x="123" y="245" fill="#94A3B8" font-size="10" font-weight="600" font-family="Inter,sans-serif" text-anchor="end">Monachium</text>
+        </g>
+
+        <!-- Granica PL-DE -->
+        <line x1="234" y1="62" x2="240" y2="290" stroke="rgba(255,255,255,0.12)" stroke-width="1" stroke-dasharray="4,4"/>
+        <text x="237" y="310" fill="rgba(255,255,255,0.2)" font-size="8" font-family="Inter,sans-serif" text-anchor="middle">GRANICA</text>
+      </svg>
     </div>
 
   </div>
@@ -739,6 +788,48 @@ footer{background:#060d1a;border-top:1px solid rgba(255,255,255,.05);padding:48p
     document.getElementById('osoba2').style.display = val >= 2 ? 'block' : 'none';
     document.getElementById('osoba3').style.display = val >= 3 ? 'block' : 'none';
     document.getElementById('osoba4').style.display = val >= 4 ? 'block' : 'none';
+  }
+
+  // Kalkulator ceny
+  const PRICES = {
+    'poznan-berlin': {price:180, time:'~3h 30min'},
+    'poznan-hamburg': {price:220, time:'~5h 00min'},
+    'poznan-frankfurt': {price:280, time:'~7h 00min'},
+    'poznan-monachium': {price:320, time:'~9h 00min'},
+    'wroclaw-berlin': {price:220, time:'~4h 00min'},
+    'wroclaw-hamburg': {price:260, time:'~5h 30min'},
+    'wroclaw-frankfurt': {price:300, time:'~6h 30min'},
+    'wroclaw-monachium': {price:330, time:'~8h 00min'},
+    'warszawa-berlin': {price:250, time:'~7h 30min'},
+    'warszawa-hamburg': {price:300, time:'~9h 00min'},
+    'warszawa-frankfurt': {price:370, time:'~11h 00min'},
+    'warszawa-monachium': {price:390, time:'~12h 00min'},
+    'krakow-berlin': {price:300, time:'~8h 30min'},
+    'krakow-hamburg': {price:350, time:'~10h 00min'},
+    'krakow-frankfurt': {price:350, time:'~9h 00min'},
+    'krakow-monachium': {price:320, time:'~7h 30min'},
+  };
+  const CITY_NAMES = {poznan:'Poznań',wroclaw:'Wrocław',warszawa:'Warszawa',krakow:'Kraków',berlin:'Berlin',hamburg:'Hamburg',frankfurt:'Frankfurt',monachium:'Monachium'};
+
+  function calcPrice() {
+    const from = document.getElementById('calc-from').value;
+    const to = document.getElementById('calc-to').value;
+    const persons = parseInt(document.getElementById('calc-persons').value);
+    const result = document.getElementById('calc-result');
+    const placeholder = document.getElementById('calc-placeholder');
+    if (!from || !to) { result.style.display='none'; placeholder.style.display='block'; return; }
+    const key = from + '-' + to;
+    const data = PRICES[key];
+    if (!data) { result.style.display='none'; placeholder.style.display='block'; return; }
+    const total = data.price * persons;
+    const returnPrice = Math.round(total * 1.85);
+    document.getElementById('calc-route-label').textContent = CITY_NAMES[from] + ' → ' + CITY_NAMES[to];
+    document.getElementById('calc-time-label').textContent = 'Czas przejazdu: ' + data.time;
+    document.getElementById('calc-total').textContent = total + ' zł';
+    document.getElementById('calc-per-person').textContent = data.price + ' zł / os.';
+    document.getElementById('calc-return').textContent = 'tam+powrót: ' + returnPrice + ' zł';
+    result.style.display='block';
+    placeholder.style.display='none';
   }
 
   // FAQ accordion
