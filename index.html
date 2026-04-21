@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MarcelBus — Przewozy Polska–Niemcy | Komfortowe busy door-to-door</title>
+<meta name="description" content="MarcelBus — komfortowe przewozy osób z Polski do Niemiec. Warszawa, Wrocław, Poznań, Kraków → Berlin, Hamburg, Frankfurt. Rezerwuj online.">
+<link rel="canonical" href="https://marcelbus.pl/">
+<meta property="og:title" content="MarcelBus — Przewozy Polska–Niemcy">
+<meta property="og:description" content="Komfortowe przewozy busem z Polski do Niemiec. Rezerwuj online — szybko i wygodnie.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://marcelbus.pl/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TravelAgency",
+  "name": "MarcelBus",
+  "url": "https://marcelbus.pl",
+  "description": "Przewozy osób busem z Polski do Niemiec",
+  "areaServed": ["PL","DE"],
+  "telephone": "+48 787 438 177"
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:     #0B1120;
+  --bg2:    #111827;
+  --card:   #1E293B;
+  --card2:  #162032;
+  --gold:   #F59E0B;
+  --gold2:  #D97706;
+  --text:   #F1F5F9;
+  --muted:  #94A3B8;
+  --border: #1E293B;
+  --green:  #10B981;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(11,17,32,.95);backdrop-filter:blur(16px);border-bottom:1px solid rgba(245,158,11,.15);padding:0 48px;height:72px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.nav-logo img{height:36px;width:auto;filter:invert(1)}
+.nav-links{list-style:none;display:flex;gap:32px;align-items:center}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.88rem;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+.btn-gold{background:var(--gold);color:#0B1120;padding:10px 24px;border-radius:8px;font-weight:700;font-size:.88rem;text-decoration:none;transition:background .2s;white-space:nowrap}
+.btn-gold:hover{background:var(--gold2);color:#0B1120}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:all .3s}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;top:72px;left:0;right:0;background:rgba(11,17,32,.98);backdrop-filter:blur(16px);border-bottom:1px solid rgba(245,158,11,.15);z-index:99;max-height:0;overflow:hidden;transition:max-height .3s}
+.mobile-menu.open{max-height:360px}
+.mobile-menu ul{list-style:none;padding:12px 0}
+.mobile-menu ul li a{display:block;padding:14px 28px;color:var(--muted);text-decoration:none;font-size:.95rem;font-weight:500;border-bottom:1px solid rgba(255,255,255,.04);transition:color .2s}
+.mobile-menu ul li a:hover{color:var(--text)}
+.mobile-menu ul li:last-child a{background:var(--gold);color:#0B1120;font-weight:700;margin:12px 20px;border-radius:8px;border:none;text-align:center}
+
+/* HERO */
+.hero{min-height:100vh;padding-top:72px;display:flex;align-items:center;position:relative;overflow:hidden;background:linear-gradient(160deg,#060d1a 0%,#0B1120 50%,#0d1420 100%)}
+.hero::before{content:'';position:absolute;top:0;right:0;width:60%;height:100%;background:radial-gradient(ellipse 80% 80% at 80% 50%,rgba(245,158,11,.07) 0%,transparent 70%)}
+.hero-inner{max-width:1280px;margin:0 auto;padding:60px 48px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;width:100%;position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);color:var(--gold);padding:6px 16px;border-radius:20px;font-size:.78rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:24px}
+.hero h1{font-size:clamp(2.4rem,5vw,4rem);font-weight:900;line-height:1.1;margin-bottom:20px;letter-spacing:-1px}
+.hero h1 .gold{color:var(--gold)}
+.hero-sub{font-size:1.05rem;color:var(--muted);line-height:1.7;margin-bottom:36px;max-width:480px}
+.hero-cities{display:flex;align-items:center;gap:16px;margin-bottom:36px;flex-wrap:wrap}
+.city-group{display:flex;flex-direction:column;gap:6px}
+.city-pill{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:var(--text);padding:6px 14px;border-radius:6px;font-size:.82rem;font-weight:600;white-space:nowrap}
+.route-arrow{color:var(--gold);font-size:1.6rem;font-weight:900}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#0B1120;padding:14px 32px;border-radius:10px;font-weight:800;font-size:.95rem;text-decoration:none;transition:background .2s,transform .2s}
+.btn-primary:hover{background:var(--gold2);transform:translateY(-2px)}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--text);padding:14px 28px;border-radius:10px;font-weight:600;font-size:.95rem;text-decoration:none;border:1px solid rgba(255,255,255,.15);transition:border-color .2s}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+
+/* MAP SVG */
+.map-container{position:relative}
+.map-box{background:var(--card2);border:1px solid rgba(245,158,11,.2);border-radius:20px;padding:24px;overflow:hidden}
+.map-box svg{width:100%;height:auto;display:block}
+.map-label{position:absolute;font-size:.7rem;font-weight:700;color:var(--gold);letter-spacing:1px;text-transform:uppercase;top:12px;left:50%;transform:translateX(-50%);background:rgba(11,17,32,.8);padding:4px 12px;border-radius:12px;border:1px solid rgba(245,158,11,.3);white-space:nowrap}
+
+/* STRIP */
+.strip{background:var(--gold);padding:16px 48px;display:flex;justify-content:center;gap:64px;flex-wrap:wrap}
+.strip-item{font-size:.78rem;font-weight:800;letter-spacing:2px;color:#0B1120;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+
+/* TRASY */
+.routes{padding:90px 48px;max-width:1280px;margin:0 auto}
+.section-label{font-size:.72rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.section-title{font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:900;margin-bottom:14px;letter-spacing:-0.5px}
+.section-sub{color:var(--muted);font-size:1rem;line-height:1.7;max-width:560px;margin-bottom:56px}
+.routes-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+.route-card{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:28px;transition:border-color .3s,transform .3s;position:relative;overflow:hidden}
+.route-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),transparent);opacity:0;transition:opacity .3s}
+.route-card:hover{border-color:rgba(245,158,11,.3);transform:translateY(-4px)}
+.route-card:hover::before{opacity:1}
+.route-header{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.route-from,.route-to{flex:1}
+.route-city{font-size:1.15rem;font-weight:800}
+.route-country{font-size:.75rem;color:var(--muted);font-weight:500;margin-top:2px}
+.route-mid{display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0}
+.route-line{display:flex;align-items:center;gap:4px}
+.route-dot{width:8px;height:8px;border-radius:50%;background:var(--gold)}
+.route-dash{width:40px;height:2px;background:linear-gradient(90deg,var(--gold),rgba(245,158,11,.3));border-radius:1px}
+.route-time-badge{background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);color:var(--gold);padding:3px 10px;border-radius:10px;font-size:.72rem;font-weight:700;white-space:nowrap}
+.route-details{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding-top:16px;border-top:1px solid rgba(255,255,255,.05)}
+.rd-item{}
+.rd-label{font-size:.7rem;color:var(--muted);font-weight:500;margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
+.rd-value{font-size:.95rem;font-weight:700;color:var(--text)}
+.rd-value.gold{color:var(--gold)}
+
+/* ROZKŁAD */
+.schedule{background:var(--bg2);padding:90px 48px}
+.schedule-inner{max-width:1280px;margin:0 auto}
+.tabs{display:flex;gap:8px;margin-bottom:32px;flex-wrap:wrap}
+.tab{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:var(--muted);padding:10px 20px;border-radius:8px;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .2s}
+.tab.active,.tab:hover{background:rgba(245,158,11,.12);border-color:rgba(245,158,11,.4);color:var(--gold)}
+.schedule-table{width:100%;border-collapse:collapse;background:var(--card);border-radius:16px;overflow:hidden}
+.schedule-table th{background:rgba(245,158,11,.08);color:var(--muted);font-size:.75rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:14px 20px;text-align:left;border-bottom:1px solid rgba(255,255,255,.05)}
+.schedule-table td{padding:16px 20px;font-size:.9rem;border-bottom:1px solid rgba(255,255,255,.03)}
+.schedule-table tr:last-child td{border-bottom:none}
+.schedule-table tr:hover td{background:rgba(245,158,11,.03)}
+.status-available{display:inline-flex;align-items:center;gap:6px;color:var(--green);font-size:.8rem;font-weight:600}
+.status-few{display:inline-flex;align-items:center;gap:6px;color:#F59E0B;font-size:.8rem;font-weight:600}
+.status-dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+.price-tag{font-weight:800;color:var(--gold)}
+.reserve-btn{background:var(--gold);color:#0B1120;border:none;padding:8px 18px;border-radius:6px;font-size:.8rem;font-weight:700;cursor:pointer;transition:background .2s;text-decoration:none;display:inline-block}
+.reserve-btn:hover{background:var(--gold2)}
+
+/* DLACZEGO */
+.why{padding:90px 48px;max-width:1280px;margin:0 auto}
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.why-card{background:var(--card);border:1px solid rgba(255,255,255,.05);border-radius:16px;padding:28px;transition:border-color .3s,transform .3s}
+.why-card:hover{border-color:rgba(245,158,11,.25);transform:translateY(-4px)}
+.why-icon{width:52px;height:52px;background:rgba(245,158,11,.1);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--gold);margin-bottom:16px}
+.why-card h4{font-size:1rem;font-weight:800;margin-bottom:8px}
+.why-card p{color:var(--muted);font-size:.88rem;line-height:1.6}
+
+/* CENNIK */
+.pricing{background:var(--bg2);padding:90px 48px}
+.pricing-inner{max-width:1100px;margin:0 auto}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:0}
+.price-card{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:20px;padding:36px;position:relative;transition:border-color .3s,transform .3s}
+.price-card:hover{border-color:rgba(245,158,11,.25);transform:translateY(-4px)}
+.price-card.featured{border-color:rgba(245,158,11,.4);background:linear-gradient(160deg,var(--card),rgba(245,158,11,.05))}
+.price-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--gold);color:#0B1120;font-size:.72rem;font-weight:800;letter-spacing:1px;padding:4px 16px;border-radius:20px;text-transform:uppercase;white-space:nowrap}
+.price-name{font-size:1.1rem;font-weight:800;margin-bottom:8px}
+.price-amount{font-size:2.8rem;font-weight:900;color:var(--gold);line-height:1;margin-bottom:4px}
+.price-amount span{font-size:1rem;color:var(--muted);font-weight:400}
+.price-note{color:var(--muted);font-size:.82rem;margin-bottom:24px}
+.price-list{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.price-list li{display:flex;align-items:center;gap:10px;font-size:.88rem;color:var(--muted)}
+.price-list li::before{content:'';width:16px;height:16px;border-radius:50%;background:rgba(16,185,129,.15);border:1.5px solid var(--green);flex-shrink:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 6l3 3 5-5' stroke='%2310B981' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center}
+.btn-card-gold{display:block;background:var(--gold);color:#0B1120;text-align:center;padding:14px;border-radius:10px;font-weight:800;font-size:.9rem;text-decoration:none;transition:background .2s}
+.btn-card-gold:hover{background:var(--gold2)}
+.btn-card-outline{display:block;background:transparent;color:var(--text);text-align:center;padding:14px;border-radius:10px;font-weight:700;font-size:.9rem;text-decoration:none;border:1px solid rgba(255,255,255,.12);transition:border-color .2s,color .2s}
+.btn-card-outline:hover{border-color:var(--gold);color:var(--gold)}
+
+/* REZERWACJA */
+.reservation{padding:90px 48px;max-width:1280px;margin:0 auto}
+.reservation-inner{display:grid;grid-template-columns:1fr 1.2fr;gap:70px;align-items:start}
+.res-info{}
+.res-info h2{font-size:clamp(1.8rem,3vw,2.4rem);font-weight:900;margin-bottom:16px;letter-spacing:-0.5px}
+.res-info p{color:var(--muted);font-size:.95rem;line-height:1.7;margin-bottom:32px}
+.contact-box{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:24px;display:flex;flex-direction:column;gap:18px}
+.ci-row{display:flex;align-items:center;gap:14px}
+.ci-icon{width:42px;height:42px;background:rgba(245,158,11,.1);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--gold);flex-shrink:0}
+.ci-label{font-size:.72rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.ci-value{font-size:.95rem;font-weight:700;color:var(--text)}
+.res-form{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:20px;padding:36px}
+.res-form h3{font-size:1.2rem;font-weight:800;margin-bottom:6px}
+.res-form p{color:var(--muted);font-size:.85rem;margin-bottom:28px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-full{grid-column:1/-1}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group label{font-size:.78rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+.form-group input,.form-group select,.form-group textarea{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);color:var(--text);padding:12px 16px;border-radius:8px;font-size:.9rem;font-family:'Inter',sans-serif;transition:border-color .2s;outline:none}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:rgba(245,158,11,.5);background:rgba(245,158,11,.03)}
+.form-group select option{background:#1E293B}
+.form-group textarea{height:100px;resize:none}
+.btn-submit{width:100%;background:var(--gold);color:#0B1120;border:none;padding:16px;border-radius:10px;font-family:'Inter',sans-serif;font-size:1rem;font-weight:800;cursor:pointer;transition:background .2s,transform .2s;margin-top:8px}
+.btn-submit:hover{background:var(--gold2);transform:translateY(-1px)}
+
+/* FOOTER */
+footer{background:#060d1a;border-top:1px solid rgba(255,255,255,.05);padding:48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
+.footer-logo{display:flex;align-items:center;gap:10px}
+.footer-logo img{height:28px;filter:invert(1);opacity:.7}
+.footer-copy{color:var(--muted);font-size:.82rem}
+.footer-links{display:flex;gap:24px}
+.footer-links a{color:var(--muted);text-decoration:none;font-size:.82rem;transition:color .2s}
+.footer-links a:hover{color:var(--gold)}
+
+@media(max-width:900px){
+  nav{padding:0 20px;height:64px}
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .mobile-menu{display:block;top:64px}
+  .hero{padding-top:64px}
+  .hero-inner{grid-template-columns:1fr;gap:0;padding:40px 20px 60px}
+  .map-container{display:none}
+  .hero h1{font-size:clamp(2rem,9vw,3rem)}
+  .hero-sub{font-size:.95rem}
+  .hero-btns{flex-direction:column}
+  .strip{padding:14px 20px;gap:16px}
+  .routes,.why,.reservation{padding:60px 20px}
+  .schedule{padding:60px 20px}
+  .pricing{padding:60px 20px}
+  .routes-grid{grid-template-columns:1fr}
+  .why-grid{grid-template-columns:repeat(2,1fr)}
+  .pricing-grid{grid-template-columns:1fr}
+  .reservation-inner{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr}
+  footer{flex-direction:column;text-align:center;padding:32px 20px}
+  .footer-links{justify-content:center}
+  .section-title{font-size:clamp(1.6rem,7vw,2.2rem)}
+  .schedule-table{font-size:.8rem}
+  .schedule-table th,.schedule-table td{padding:12px 12px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">
+    <img src="logo-bus.png" alt="MarcelBus">
+  </a>
+  <ul class="nav-links">
+    <li><a href="#trasy">Trasy</a></li>
+    <li><a href="#rozklad">Rozkład jazdy</a></li>
+    <li><a href="#cennik">Cennik</a></li>
+    <li><a href="#rezerwacja">Kontakt</a></li>
+    <li><a href="#rezerwacja" class="btn-gold">Zarezerwuj miejsce</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <ul>
+    <li><a href="#trasy" onclick="closeMobileMenu()">Trasy</a></li>
+    <li><a href="#rozklad" onclick="closeMobileMenu()">Rozkład jazdy</a></li>
+    <li><a href="#cennik" onclick="closeMobileMenu()">Cennik</a></li>
+    <li><a href="#rezerwacja" onclick="closeMobileMenu()">Kontakt</a></li>
+    <li><a href="#rezerwacja" onclick="closeMobileMenu()">Zarezerwuj miejsce</a></li>
+  </ul>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-badge">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+        Dostępne miejsca na maj 2026
+      </div>
+      <h1>Polska <span class="gold">→</span><br>Niemcy<br>bez stresu.</h1>
+      <p class="hero-sub">Komfortowe przewozy busem door-to-door. Odbieramy z domu, dowozimy pod wskazany adres w Niemczech. Bez przesiadek, bez nerwów.</p>
+      <div class="hero-cities">
+        <div class="city-group">
+          <span class="city-pill">🇵🇱 Warszawa</span>
+          <span class="city-pill">🇵🇱 Wrocław</span>
+          <span class="city-pill">🇵🇱 Poznań</span>
+          <span class="city-pill">🇵🇱 Kraków</span>
+        </div>
+        <div class="route-arrow">→</div>
+        <div class="city-group">
+          <span class="city-pill">🇩🇪 Berlin</span>
+          <span class="city-pill">🇩🇪 Hamburg</span>
+          <span class="city-pill">🇩🇪 Frankfurt</span>
+          <span class="city-pill">🇩🇪 Monachium</span>
+        </div>
+      </div>
+      <div class="hero-btns">
+        <a href="#rezerwacja" class="btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          Zarezerwuj teraz
+        </a>
+        <a href="#rozklad" class="btn-ghost">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Rozkład jazdy
+        </a>
+      </div>
+    </div>
+    <div class="map-container">
+      <div style="display:flex;align-items:center;justify-content:center;height:100%;padding:10px">
+        <div style="border:2px solid rgba(245,158,11,0.35);border-radius:24px;background:rgba(245,158,11,0.04);padding:40px 48px;box-shadow:0 0 60px rgba(245,158,11,0.12),inset 0 0 40px rgba(245,158,11,0.04)">
+          <img src="logo-bus-gold.png" alt="MarcelBus" style="width:100%;max-width:860px;height:auto;filter:drop-shadow(0 0 24px rgba(245,158,11,0.4))">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="strip-item">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+    Door-to-door
+  </div>
+  <div class="strip-item">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 6v16l7-4 8 4 7-4V2l-7 4-8-4-7 4z"/><path d="M8 2v16M16 6v16"/></svg>
+    GPS Tracking
+  </div>
+  <div class="strip-item">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+    WiFi na pokładzie
+  </div>
+  <div class="strip-item">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+    Płatność kartą
+  </div>
+  <div class="strip-item">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    Licencjonowany przewóz
+  </div>
+</div>
+
+<!-- TRASY -->
+<section class="routes" id="trasy">
+  <div class="section-label">Dokąd jedziemy</div>
+  <h2 class="section-title">Nasze trasy</h2>
+  <p class="section-sub">Regularne kursy z głównych miast Polski do Niemiec. Odbieramy pasażerów z domu i dowozimy pod wskazany adres.</p>
+  <div class="routes-grid">
+
+    <div class="route-card">
+      <div class="route-header">
+        <div class="route-from">
+          <div class="route-city">Warszawa</div>
+          <div class="route-country">🇵🇱 Polska</div>
+        </div>
+        <div class="route-mid">
+          <div class="route-line">
+            <div class="route-dot"></div>
+            <div class="route-dash"></div>
+            <div class="route-dot"></div>
+          </div>
+          <div class="route-time-badge">~7h 30min</div>
+        </div>
+        <div class="route-to" style="text-align:right">
+          <div class="route-city">Berlin</div>
+          <div class="route-country">🇩🇪 Niemcy</div>
+        </div>
+      </div>
+      <div class="route-details">
+        <div class="rd-item"><div class="rd-label">Wyjazd</div><div class="rd-value">05:30</div></div>
+        <div class="rd-item"><div class="rd-label">Przyjazd</div><div class="rd-value">13:00</div></div>
+        <div class="rd-item"><div class="rd-label">Cena od</div><div class="rd-value gold">149 zł</div></div>
+      </div>
+    </div>
+
+    <div class="route-card">
+      <div class="route-header">
+        <div class="route-from">
+          <div class="route-city">Wrocław</div>
+          <div class="route-country">🇵🇱 Polska</div>
+        </div>
+        <div class="route-mid">
+          <div class="route-line">
+            <div class="route-dot"></div>
+            <div class="route-dash"></div>
+            <div class="route-dot"></div>
+          </div>
+          <div class="route-time-badge">~4h 00min</div>
+        </div>
+        <div class="route-to" style="text-align:right">
+          <div class="route-city">Berlin</div>
+          <div class="route-country">🇩🇪 Niemcy</div>
+        </div>
+      </div>
+      <div class="route-details">
+        <div class="rd-item"><div class="rd-label">Wyjazd</div><div class="rd-value">07:00</div></div>
+        <div class="rd-item"><div class="rd-label">Przyjazd</div><div class="rd-value">11:00</div></div>
+        <div class="rd-item"><div class="rd-label">Cena od</div><div class="rd-value gold">99 zł</div></div>
+      </div>
+    </div>
+
+    <div class="route-card">
+      <div class="route-header">
+        <div class="route-from">
+          <div class="route-city">Poznań</div>
+          <div class="route-country">🇵🇱 Polska</div>
+        </div>
+        <div class="route-mid">
+          <div class="route-line">
+            <div class="route-dot"></div>
+            <div class="route-dash"></div>
+            <div class="route-dot"></div>
+          </div>
+          <div class="route-time-badge">~3h 30min</div>
+        </div>
+        <div class="route-to" style="text-align:right">
+          <div class="route-city">Berlin</div>
+          <div class="route-country">🇩🇪 Niemcy</div>
+        </div>
+      </div>
+      <div class="route-details">
+        <div class="rd-item"><div class="rd-label">Wyjazd</div><div class="rd-value">06:30</div></div>
+        <div class="rd-item"><div class="rd-label">Przyjazd</div><div class="rd-value">10:00</div></div>
+        <div class="rd-item"><div class="rd-label">Cena od</div><div class="rd-value gold">89 zł</div></div>
+      </div>
+    </div>
+
+    <div class="route-card">
+      <div class="route-header">
+        <div class="route-from">
+          <div class="route-city">Kraków</div>
+          <div class="route-country">🇵🇱 Polska</div>
+        </div>
+        <div class="route-mid">
+          <div class="route-line">
+            <div class="route-dot"></div>
+            <div class="route-dash"></div>
+            <div class="route-dot"></div>
+          </div>
+          <div class="route-time-badge">~9h 00min</div>
+        </div>
+        <div class="route-to" style="text-align:right">
+          <div class="route-city">Frankfurt</div>
+          <div class="route-country">🇩🇪 Niemcy</div>
+        </div>
+      </div>
+      <div class="route-details">
+        <div class="rd-item"><div class="rd-label">Wyjazd</div><div class="rd-value">04:00</div></div>
+        <div class="rd-item"><div class="rd-label">Przyjazd</div><div class="rd-value">13:00</div></div>
+        <div class="rd-item"><div class="rd-label">Cena od</div><div class="rd-value gold">179 zł</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ROZKŁAD JAZDY -->
+<section class="schedule" id="rozklad">
+  <div class="schedule-inner">
+    <div class="section-label">Harmonogram</div>
+    <h2 class="section-title">Rozkład jazdy</h2>
+    <p class="section-sub" style="margin-bottom:32px">Kursy w obu kierunkach. Miejsca rezerwowane z wyprzedzeniem — nie zwlekaj.</p>
+    <div class="tabs">
+      <div class="tab active" onclick="showTab('waw-ber')">Warszawa → Berlin</div>
+      <div class="tab" onclick="showTab('wro-ber')">Wrocław → Berlin</div>
+      <div class="tab" onclick="showTab('poz-ber')">Poznań → Berlin</div>
+      <div class="tab" onclick="showTab('krk-fra')">Kraków → Frankfurt</div>
+    </div>
+    <table class="schedule-table" id="waw-ber">
+      <thead>
+        <tr>
+          <th>Dzień</th>
+          <th>Wyjazd (WAW)</th>
+          <th>Przyjazd (BER)</th>
+          <th>Miejsca</th>
+          <th>Cena</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Poniedziałek</strong></td><td>05:30</td><td>13:00</td><td><span class="status-available"><span class="status-dot"></span>6 wolnych</span></td><td><span class="price-tag">149 zł</span></td><td><a href="#rezerwacja" class="reserve-btn">Rezerwuj</a></td></tr>
+        <tr><td><strong>Środa</strong></td><td>05:30</td><td>13:00</td><td><span class="status-few"><span class="status-dot"></span>2 wolne</span></td><td><span class="price-tag">149 zł</span></td><td><a href="#rezerwacja" class="reserve-btn">Rezerwuj</a></td></tr>
+        <tr><td><strong>Piątek</strong></td><td>05:30</td><td>13:00</td><td><span class="status-available"><span class="status-dot"></span>8 wolnych</span></td><td><span class="price-tag">149 zł</span></td><td><a href="#rezerwacja" class="reserve-btn">Rezerwuj</a></td></tr>
+        <tr><td><strong>Niedziela</strong></td><td>06:00</td><td>13:30</td><td><span class="status-available"><span class="status-dot"></span>7 wolnych</span></td><td><span class="price-tag">149 zł</span></td><td><a href="#rezerwacja" class="reserve-btn">Rezerwuj</a></td></tr>
+      </tbody>
+    </table>
+    <table class="schedule-table" id="wro-ber" style="display:none">
+      <thead>
+        <tr><th>Dzień</th><th>Wyjazd (WRO)</th><th>Przyjazd (BER)</th><th>Miejsca</th><th>Cena</th><th></th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Wtorek</strong></td><td>07:00</td><td>11:00</td><td><span class="status-available"><span class="status-dot"></span>5 wolnych</span></td><td><span class="price-tag">99 zł</span></td><td><a href="#rezerwacja" class="reserve-btn">Rezerwuj</a></td></tr>
+        <tr><td><strong>Czwartek</strong></td><td>07:00</td><td>11:00</td><td><span class="status-few"><span class="status-dot"></span>3 wolne</span></td><td><span class="price-tag">99 zł</span></td><td><a href="#rezerwacja" class="reserve-btn">Rezerwuj</a></td></tr>
+        <tr><td><strong>Sobota</strong></td><td>08:00</td><td>12:00</td><td><span class="status-available"><span class="status-dot"></span>8 wolnych</span></td><td><span class="price-tag">99 zł</span></td><td><a href="#rezerwacja" class="reserve-btn">Rezerwuj</a></td></tr>
+      </tbody>
+    </table>
+    <table class="schedule-table" id="poz-ber" style="display:none">
+      <thead>
+        <tr><th>Dzień</th><th>Wyjazd (POZ)</th><th>Przyjazd (BER)</th><th>Miejsca</th><th>Cena</th><th></th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Poniedziałek</strong></td><td>06:30</td><td>10:00</td><td><span class="status-available"><span class="status-dot"></span>7 wolnych</span></td><td><span class="price-tag">89 zł</span></td><td><a href="#rezerwacja" class="reserve-btn">Rezerwuj</a></td></tr>
+        <tr><td><strong>Środa</strong></td><td>06:30</td><td>10:00</td><td><span class="status-available"><span class="status-dot"></span>6 wolnych</span></td><td><span class="price-tag">89 zł</span></td><td><a href="#rezerwacja" class="reserve-btn">Rezerwuj</a></td></tr>
+        <tr><td><strong>Piątek</strong></td><td>06:30</td><td>10:00</td><td><span class="status-few"><span class="status-dot"></span>1 wolne</span></td><td><span class="price-tag">89 zł</span></td><td><a href="#rezerwacja" class="reserve-btn">Rezerwuj</a></td></tr>
+        <tr><td><strong>Niedziela</strong></td><td>07:00</td><td>10:30</td><td><span class="status-available"><span class="status-dot"></span>9 wolnych</span></td><td><span class="price-tag">89 zł</span></td><td><a href="#rezerwacja" class="reserve-btn">Rezerwuj</a></td></tr>
+      </tbody>
+    </table>
+    <table class="schedule-table" id="krk-fra" style="display:none">
+      <thead>
+        <tr><th>Dzień</th><th>Wyjazd (KRK)</th><th>Przyjazd (FRA)</th><th>Miejsca</th><th>Cena</th><th></th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Wtorek</strong></td><td>04:00</td><td>13:00</td><td><span class="status-available"><span class="status-dot"></span>5 wolnych</span></td><td><span class="price-tag">179 zł</span></td><td><a href="#rezerwacja" class="reserve-btn">Rezerwuj</a></td></tr>
+        <tr><td><strong>Piątek</strong></td><td>04:00</td><td>13:00</td><td><span class="status-few"><span class="status-dot"></span>2 wolne</span></td><td><span class="price-tag">179 zł</span></td><td><a href="#rezerwacja" class="reserve-btn">Rezerwuj</a></td></tr>
+        <tr><td><strong>Niedziela</strong></td><td>05:00</td><td>14:00</td><td><span class="status-available"><span class="status-dot"></span>8 wolnych</span></td><td><span class="price-tag">179 zł</span></td><td><a href="#rezerwacja" class="reserve-btn">Rezerwuj</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- DLACZEGO MY -->
+<section class="why">
+  <div class="section-label">Dlaczego MarcelBus</div>
+  <h2 class="section-title">Komfort w każdym kilometrze</h2>
+  <p class="section-sub" style="margin-bottom:48px">Nie jesteśmy kolejnym busy. Jesteśmy serwisem premium w rozsądnej cenie.</p>
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg></div>
+      <h4>Door-to-door</h4>
+      <p>Odbieramy z Twojego adresu i dowozimy pod wskazany adres w Niemczech. Zero nerwów z bagażami na dworcu.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></div>
+      <h4>Nowe, klimatyzowane busy</h4>
+      <p>Flota nowych pojazdów z klimatyzacją, WiFi, ładowarkami USB i rozkładanymi siedzeniami.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      <h4>Punktualność</h4>
+      <p>Ponad 97% kursów przyjeżdża na czas. Śledzisz pojazd na żywo przez SMS lub nasz GPS tracker.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <h4>Licencjonowany przewóz</h4>
+      <p>Posiadamy wszystkie wymagane licencje i ubezpieczenia. Podróżujesz legalnie i bezpiecznie.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CENNIK -->
+<section class="pricing" id="cennik">
+  <div class="pricing-inner">
+    <div class="section-label" style="text-align:center">Ceny biletów</div>
+    <h2 class="section-title" style="text-align:center">Przejrzyste ceny</h2>
+    <p class="section-sub" style="text-align:center;margin:0 auto 56px">Bez ukrytych opłat. Cena zawiera bagaż podręczny i jedną walizkę.</p>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="price-name">Bilet Standard</div>
+        <div class="price-amount">od 89 <span>zł</span></div>
+        <div class="price-note">za osobę, jeden kierunek</div>
+        <ul class="price-list">
+          <li>Miejsce siedzące w busie</li>
+          <li>Bagaż 1 szt. do 20 kg</li>
+          <li>Bagaż podręczny 5 kg</li>
+          <li>WiFi na pokładzie</li>
+          <li>Ładowarka USB</li>
+          <li>Zmiana terminu 48h przed</li>
+        </ul>
+        <a href="#rezerwacja" class="btn-card-outline">Zarezerwuj</a>
+      </div>
+      <div class="price-card featured">
+        <div class="price-badge">⭐ Najpopularniejszy</div>
+        <div class="price-name">Bilet Comfort</div>
+        <div class="price-amount">od 129 <span>zł</span></div>
+        <div class="price-note">za osobę, jeden kierunek</div>
+        <ul class="price-list">
+          <li>Szersze siedzenie (2 miejsca)</li>
+          <li>Bagaż 2 szt. do 30 kg łącznie</li>
+          <li>Priorytetowe wsiadanie</li>
+          <li>WiFi premium</li>
+          <li>Koc + poduszka</li>
+          <li>Bezpłatna zmiana terminu</li>
+        </ul>
+        <a href="#rezerwacja" class="btn-card-gold">Zarezerwuj teraz</a>
+      </div>
+      <div class="price-card">
+        <div class="price-name">Bilet Powrotny</div>
+        <div class="price-amount">-15 <span>%</span></div>
+        <div class="price-note">rabat na bilet powrotny</div>
+        <ul class="price-list">
+          <li>Kup jednocześnie tam i z powrotem</li>
+          <li>15% taniej od ceny normalnej</li>
+          <li>Dowolny termin powrotu</li>
+          <li>Wszystko z biletu Standard</li>
+          <li>Bezpłatna zmiana daty powrotu</li>
+          <li>Gwarancja miejsca</li>
+        </ul>
+        <a href="#rezerwacja" class="btn-card-outline">Zarezerwuj</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REZERWACJA -->
+<section class="reservation" id="rezerwacja">
+  <div class="reservation-inner">
+    <div class="res-info">
+      <div class="section-label">Rezerwacja</div>
+      <h2>Zarezerwuj<br>swoje miejsce</h2>
+      <p>Wypełnij formularz, a oddzwonimy lub odpiszemy w ciągu 2 godzin w celu potwierdzenia kursu i płatności.</p>
+      <div class="contact-box">
+        <div class="ci-row">
+          <div class="ci-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.42 2 2 0 0 1 3.6 1.25h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9c1.91 3.27 4.63 5.99 7.9 7.9l.91-.91a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+          <div><div class="ci-label">Telefon</div><div class="ci-value">+48 787 438 177</div></div>
+        </div>
+        <div class="ci-row">
+          <div class="ci-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div>
+          <div><div class="ci-label">Email</div><div class="ci-value">kontakt@marcelbus.pl</div></div>
+        </div>
+        <div class="ci-row">
+          <div class="ci-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+          <div><div class="ci-label">WhatsApp / Telegram</div><div class="ci-value">+48 787 438 177</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="res-form">
+      <h3>Formularz rezerwacji</h3>
+      <p>Bezpłatna rezerwacja wstępna — potwierdzamy w ciągu 2h</p>
+      <form action="https://formspree.io/f/xpqkjbod" method="POST">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Imię i nazwisko</label>
+            <input type="text" name="imie" placeholder="Jan Kowalski" required>
+          </div>
+          <div class="form-group">
+            <label>Telefon</label>
+            <input type="tel" name="telefon" placeholder="+48 600 000 000" required>
+          </div>
+          <div class="form-group">
+            <label>Trasa</label>
+            <select name="trasa" required>
+              <option value="">Wybierz trasę</option>
+              <option>Warszawa → Berlin</option>
+              <option>Wrocław → Berlin</option>
+              <option>Poznań → Berlin</option>
+              <option>Kraków → Frankfurt</option>
+              <option>Powrót z Niemiec do Polski</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Data wyjazdu</label>
+            <input type="date" name="data" required>
+          </div>
+          <div class="form-group">
+            <label>Adres odbioru</label>
+            <input type="text" name="adres_odbioru" placeholder="ul. Przykładowa 1, Warszawa">
+          </div>
+          <div class="form-group">
+            <label>Adres docelowy</label>
+            <input type="text" name="adres_docelowy" placeholder="Musterstraße 5, Berlin">
+          </div>
+          <div class="form-group">
+            <label>Liczba osób</label>
+            <select name="osoby">
+              <option>1 osoba</option>
+              <option>2 osoby</option>
+              <option>3 osoby</option>
+              <option>4+ osoby</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Typ biletu</label>
+            <select name="bilet">
+              <option>Standard (od 89 zł)</option>
+              <option>Comfort (od 129 zł)</option>
+              <option>Powrotny (-15%)</option>
+            </select>
+          </div>
+          <div class="form-group form-full">
+            <label>Uwagi (opcjonalnie)</label>
+            <textarea name="uwagi" placeholder="Np. wózek dziecięcy, zwierzę, specjalne potrzeby..."></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn-submit">
+          Wyślij rezerwację →
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <img src="logo-bus.png" alt="MarcelBus">
+  </div>
+  <div class="footer-copy">© 2026 MarcelBus · Przewozy Polska–Niemcy · Wszelkie prawa zastrzeżone</div>
+  <div class="footer-links">
+    <a href="#trasy">Trasy</a>
+    <a href="#cennik">Cennik</a>
+    <a href="#rezerwacja">Kontakt</a>
+  </div>
+</footer>
+
+<script>
+  // Hamburger
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  function closeMobileMenu() {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+  }
+
+  // Tabs
+  function showTab(id) {
+    document.querySelectorAll('.schedule-table').forEach(t => t.style.display = 'none');
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(id).style.display = 'table';
+    event.target.classList.add('active');
+  }
+</script>
+</body>
+</html>
