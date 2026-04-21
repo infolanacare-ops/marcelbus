@@ -600,17 +600,6 @@ footer{background:#060d1a;border-top:1px solid rgba(255,255,255,.05);padding:48p
             <input type="tel" name="telefon" placeholder="+48 600 000 000" required>
           </div>
           <div class="form-group">
-            <label>Trasa</label>
-            <select name="trasa" required>
-              <option value="">Wybierz trasę</option>
-              <option>Warszawa → Berlin</option>
-              <option>Wrocław → Berlin</option>
-              <option>Poznań → Berlin</option>
-              <option>Kraków → Frankfurt</option>
-              <option>Powrót z Niemiec do Polski</option>
-            </select>
-          </div>
-          <div class="form-group">
             <label>Data wyjazdu</label>
             <input type="date" name="data" required>
           </div>
@@ -624,21 +613,38 @@ footer{background:#060d1a;border-top:1px solid rgba(255,255,255,.05);padding:48p
           </div>
           <div class="form-group">
             <label>Liczba osób</label>
-            <select name="osoby">
-              <option>1 osoba</option>
-              <option>2 osoby</option>
-              <option>3 osoby</option>
-              <option>4+ osoby</option>
+            <select name="osoby" id="liczbaOsob" onchange="toggleOsoba2()">
+              <option value="1">1 osoba</option>
+              <option value="2">2 osoby</option>
+              <option value="3">3 osoby</option>
+              <option value="4">4+ osoby</option>
             </select>
           </div>
           <div class="form-group">
             <label>Typ biletu</label>
             <select name="bilet">
-              <option>Standard (od 180 zł)</option>
-              <option>Comfort (od 250 zł)</option>
+              <option>Comfort (od 350 zł)</option>
               <option>Powrotny (-15%)</option>
             </select>
           </div>
+        </div>
+
+        <!-- OSOBA 2 -->
+        <div id="osoba2" style="display:none;margin-top:20px;padding:20px;background:rgba(245,158,11,0.05);border:1px solid rgba(245,158,11,0.2);border-radius:12px">
+          <div style="font-size:.8rem;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px">Dane drugiej osoby</div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Imię i nazwisko</label>
+              <input type="text" name="imie_2" placeholder="Jan Kowalski">
+            </div>
+            <div class="form-group">
+              <label>Telefon</label>
+              <input type="tel" name="telefon_2" placeholder="+48 600 000 000">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-grid" style="margin-top:14px">
           <div class="form-group form-full">
             <label>Uwagi (opcjonalnie)</label>
             <textarea name="uwagi" placeholder="Np. wózek dziecięcy, zwierzę, specjalne potrzeby..."></textarea>
@@ -676,6 +682,12 @@ footer{background:#060d1a;border-top:1px solid rgba(255,255,255,.05);padding:48p
   function closeMobileMenu() {
     hamburger.classList.remove('open');
     mobileMenu.classList.remove('open');
+  }
+
+  // Osoba 2
+  function toggleOsoba2() {
+    const val = document.getElementById('liczbaOsob').value;
+    document.getElementById('osoba2').style.display = (val >= 2) ? 'block' : 'none';
   }
 
   // Tabs
