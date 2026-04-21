@@ -131,6 +131,18 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(11,17,32,.95
 .reserve-btn{background:var(--gold);color:#0B1120;border:none;padding:8px 18px;border-radius:6px;font-size:.8rem;font-weight:700;cursor:pointer;transition:background .2s;text-decoration:none;display:inline-block}
 .reserve-btn:hover{background:var(--gold2)}
 
+/* FAQ */
+.faq-list{max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.faq-item{background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:12px;overflow:hidden;transition:border-color .3s}
+.faq-item.open{border-color:rgba(245,158,11,.3)}
+.faq-q{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;cursor:pointer;font-weight:700;font-size:.95rem;gap:16px;transition:color .2s}
+.faq-q:hover{color:var(--gold)}
+.faq-item.open .faq-q{color:var(--gold)}
+.faq-arrow{flex-shrink:0;transition:transform .3s;color:var(--muted)}
+.faq-item.open .faq-arrow{transform:rotate(180deg);color:var(--gold)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .3s;color:var(--muted);font-size:.9rem;line-height:1.7;padding:0 24px}
+.faq-item.open .faq-a{max-height:200px;padding:0 24px 20px}
+
 /* DLACZEGO */
 .why{padding:90px 48px;max-width:1280px;margin:0 auto}
 .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
@@ -230,7 +242,7 @@ footer{background:#060d1a;border-top:1px solid rgba(255,255,255,.05);padding:48p
   </a>
   <ul class="nav-links">
     <li><a href="#trasy">Trasy</a></li>
-    <li><a href="#rozklad">Rozkład jazdy</a></li>
+    <li><a href="#faq">FAQ</a></li>
     <li><a href="#cennik">Cennik</a></li>
     <li><a href="#rezerwacja">Kontakt</a></li>
     <li><a href="#rezerwacja" class="btn-gold">Zarezerwuj miejsce</a></li>
@@ -240,7 +252,7 @@ footer{background:#060d1a;border-top:1px solid rgba(255,255,255,.05);padding:48p
 <div class="mobile-menu" id="mobileMenu">
   <ul>
     <li><a href="#trasy" onclick="closeMobileMenu()">Trasy</a></li>
-    <li><a href="#rozklad" onclick="closeMobileMenu()">Rozkład jazdy</a></li>
+    <li><a href="#faq" onclick="closeMobileMenu()">FAQ</a></li>
     <li><a href="#cennik" onclick="closeMobileMenu()">Cennik</a></li>
     <li><a href="#rezerwacja" onclick="closeMobileMenu()">Kontakt</a></li>
     <li><a href="#rezerwacja" onclick="closeMobileMenu()">Zarezerwuj miejsce</a></li>
@@ -277,9 +289,9 @@ footer{background:#060d1a;border-top:1px solid rgba(255,255,255,.05);padding:48p
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           Zarezerwuj teraz
         </a>
-        <a href="#rozklad" class="btn-ghost">
+        <a href="#faq" class="btn-ghost">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          Rozkład jazdy
+          FAQ
         </a>
       </div>
     </div>
@@ -431,67 +443,83 @@ footer{background:#060d1a;border-top:1px solid rgba(255,255,255,.05);padding:48p
   </div>
 </section>
 
-<!-- ROZKŁAD JAZDY -->
-<section class="schedule" id="rozklad">
+<!-- FAQ -->
+<section class="schedule" id="faq">
   <div class="schedule-inner">
-    <div class="section-label">Harmonogram</div>
-    <h2 class="section-title">Rozkład jazdy</h2>
-    <p class="section-sub" style="margin-bottom:32px">Kursy w obu kierunkach. Miejsca rezerwowane z wyprzedzeniem — nie zwlekaj.</p>
-    <div class="tabs">
-      <div class="tab active" onclick="showTab('waw-ber')">Warszawa → Berlin</div>
-      <div class="tab" onclick="showTab('wro-ber')">Wrocław → Berlin</div>
-      <div class="tab" onclick="showTab('poz-ber')">Poznań → Berlin</div>
-      <div class="tab" onclick="showTab('krk-fra')">Kraków → Frankfurt</div>
+    <div class="section-label">Masz pytania?</div>
+    <h2 class="section-title">Najczęstsze pytania</h2>
+    <p class="section-sub" style="margin-bottom:48px">Wszystko co chcesz wiedzieć zanim zarezerwujesz miejsce.</p>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Skąd mnie odbierzecie?</span>
+          <svg class="faq-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a">Odbieramy bezpośrednio spod Twojego adresu — domu, pracy lub innego wskazanego miejsca. Nie musisz dojeżdżać na żaden dworzec ani punkt zborny.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Ile bagażu mogę zabrać?</span>
+          <svg class="faq-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a">Każdy pasażer może zabrać jedną walizkę do 20 kg oraz bagaż podręczny. W przypadku większej ilości bagażu skontaktuj się z nami wcześniej — postaramy się pomóc.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Jak wygląda płatność?</span>
+          <svg class="faq-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a">Płatność gotówką lub przelewem przed wyjazdem. Po potwierdzeniu rezerwacji podamy numer konta lub umówimy się na płatność przy wsiadaniu.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Czy mogę odwołać lub zmienić termin?</span>
+          <svg class="faq-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a">Tak. Zmianę lub odwołanie przyjmujemy do 48 godzin przed wyjazdem bez żadnych opłat. W przypadku biletu powrotnego zmiana daty powrotu jest bezpłatna.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Czy podróżuję sam czy z innymi pasażerami?</span>
+          <svg class="faq-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a">Busy są 9-osobowe i mogą być współdzielone z innymi pasażerami jadącymi w tym samym kierunku. Jeśli chcesz zarezerwować całego busa tylko dla siebie lub grupy — zapytaj o wycenę.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Jak długo trwa podróż?</span>
+          <svg class="faq-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a">Czas jazdy zależy od trasy i ruchu na granicy. Orientacyjnie: Poznań–Berlin ok. 3,5h · Wrocław–Berlin ok. 4h · Warszawa–Berlin ok. 7,5h · Kraków–Frankfurt ok. 9h. Informujemy o ewentualnych opóźnieniach na bieżąco.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Czy mogę zabrać zwierzę?</span>
+          <svg class="faq-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a">Tak, po wcześniejszym uzgodnieniu. Zwierzę musi być w transporterze i mieć aktualne dokumenty weterynaryjne wymagane przy przekraczaniu granicy do Niemiec.</div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>Czy jest WiFi i ładowarka w busie?</span>
+          <svg class="faq-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+        <div class="faq-a">Tak — każdy bus wyposażony jest w WiFi oraz ładowarki USB przy każdym miejscu. Możesz spokojnie pracować lub oglądać filmy przez całą podróż.</div>
+      </div>
+
     </div>
-    <table class="schedule-table" id="waw-ber">
-      <thead>
-        <tr>
-          <th>Dzień</th>
-          <th>Wyjazd (WAW)</th>
-          <th>Przyjazd (BER)</th>
-          <th>Miejsca</th>
-          <th>Cena</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>Poniedziałek</strong></td><td>05:30</td><td>13:00</td><td><span class="status-available"><span class="status-dot"></span>6 wolnych</span></td><td><span class="price-tag">250 zł</span></td><td><a href="#rezerwacja" class="reserve-btn">Rezerwuj</a></td></tr>
-        <tr><td><strong>Środa</strong></td><td>05:30</td><td>13:00</td><td><span class="status-few"><span class="status-dot"></span>2 wolne</span></td><td><span class="price-tag">250 zł</span></td><td><a href="#rezerwacja" class="reserve-btn">Rezerwuj</a></td></tr>
-        <tr><td><strong>Piątek</strong></td><td>05:30</td><td>13:00</td><td><span class="status-available"><span class="status-dot"></span>8 wolnych</span></td><td><span class="price-tag">250 zł</span></td><td><a href="#rezerwacja" class="reserve-btn">Rezerwuj</a></td></tr>
-        <tr><td><strong>Niedziela</strong></td><td>06:00</td><td>13:30</td><td><span class="status-available"><span class="status-dot"></span>7 wolnych</span></td><td><span class="price-tag">250 zł</span></td><td><a href="#rezerwacja" class="reserve-btn">Rezerwuj</a></td></tr>
-      </tbody>
-    </table>
-    <table class="schedule-table" id="wro-ber" style="display:none">
-      <thead>
-        <tr><th>Dzień</th><th>Wyjazd (WRO)</th><th>Przyjazd (BER)</th><th>Miejsca</th><th>Cena</th><th></th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>Wtorek</strong></td><td>07:00</td><td>11:00</td><td><span class="status-available"><span class="status-dot"></span>5 wolnych</span></td><td><span class="price-tag">220 zł</span></td><td><a href="#rezerwacja" class="reserve-btn">Rezerwuj</a></td></tr>
-        <tr><td><strong>Czwartek</strong></td><td>07:00</td><td>11:00</td><td><span class="status-few"><span class="status-dot"></span>3 wolne</span></td><td><span class="price-tag">220 zł</span></td><td><a href="#rezerwacja" class="reserve-btn">Rezerwuj</a></td></tr>
-        <tr><td><strong>Sobota</strong></td><td>08:00</td><td>12:00</td><td><span class="status-available"><span class="status-dot"></span>8 wolnych</span></td><td><span class="price-tag">220 zł</span></td><td><a href="#rezerwacja" class="reserve-btn">Rezerwuj</a></td></tr>
-      </tbody>
-    </table>
-    <table class="schedule-table" id="poz-ber" style="display:none">
-      <thead>
-        <tr><th>Dzień</th><th>Wyjazd (POZ)</th><th>Przyjazd (BER)</th><th>Miejsca</th><th>Cena</th><th></th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>Poniedziałek</strong></td><td>06:30</td><td>10:00</td><td><span class="status-available"><span class="status-dot"></span>7 wolnych</span></td><td><span class="price-tag">180 zł</span></td><td><a href="#rezerwacja" class="reserve-btn">Rezerwuj</a></td></tr>
-        <tr><td><strong>Środa</strong></td><td>06:30</td><td>10:00</td><td><span class="status-available"><span class="status-dot"></span>6 wolnych</span></td><td><span class="price-tag">180 zł</span></td><td><a href="#rezerwacja" class="reserve-btn">Rezerwuj</a></td></tr>
-        <tr><td><strong>Piątek</strong></td><td>06:30</td><td>10:00</td><td><span class="status-few"><span class="status-dot"></span>1 wolne</span></td><td><span class="price-tag">180 zł</span></td><td><a href="#rezerwacja" class="reserve-btn">Rezerwuj</a></td></tr>
-        <tr><td><strong>Niedziela</strong></td><td>07:00</td><td>10:30</td><td><span class="status-available"><span class="status-dot"></span>9 wolnych</span></td><td><span class="price-tag">180 zł</span></td><td><a href="#rezerwacja" class="reserve-btn">Rezerwuj</a></td></tr>
-      </tbody>
-    </table>
-    <table class="schedule-table" id="krk-fra" style="display:none">
-      <thead>
-        <tr><th>Dzień</th><th>Wyjazd (KRK)</th><th>Przyjazd (FRA)</th><th>Miejsca</th><th>Cena</th><th></th></tr>
-      </thead>
-      <tbody>
-        <tr><td><strong>Wtorek</strong></td><td>04:00</td><td>13:00</td><td><span class="status-available"><span class="status-dot"></span>5 wolnych</span></td><td><span class="price-tag">350 zł</span></td><td><a href="#rezerwacja" class="reserve-btn">Rezerwuj</a></td></tr>
-        <tr><td><strong>Piątek</strong></td><td>04:00</td><td>13:00</td><td><span class="status-few"><span class="status-dot"></span>2 wolne</span></td><td><span class="price-tag">350 zł</span></td><td><a href="#rezerwacja" class="reserve-btn">Rezerwuj</a></td></tr>
-        <tr><td><strong>Niedziela</strong></td><td>05:00</td><td>14:00</td><td><span class="status-available"><span class="status-dot"></span>8 wolnych</span></td><td><span class="price-tag">350 zł</span></td><td><a href="#rezerwacja" class="reserve-btn">Rezerwuj</a></td></tr>
-      </tbody>
-    </table>
+    <div style="text-align:center;margin-top:40px">
+      <p style="color:var(--muted);font-size:.9rem;margin-bottom:16px">Nie znalazłeś odpowiedzi? Napisz do nas!</p>
+      <a href="#rezerwacja" class="btn-primary" style="display:inline-flex">Skontaktuj się →</a>
+    </div>
   </div>
 </section>
 
@@ -713,12 +741,12 @@ footer{background:#060d1a;border-top:1px solid rgba(255,255,255,.05);padding:48p
     document.getElementById('osoba4').style.display = val >= 4 ? 'block' : 'none';
   }
 
-  // Tabs
-  function showTab(id) {
-    document.querySelectorAll('.schedule-table').forEach(t => t.style.display = 'none');
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    document.getElementById(id).style.display = 'table';
-    event.target.classList.add('active');
+  // FAQ accordion
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
   }
 </script>
 </body>
