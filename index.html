@@ -242,6 +242,7 @@ footer{background:#060d1a;border-top:1px solid rgba(255,255,255,.05);padding:48p
     <img src="logo-bus.png" alt="MarcelBus">
   </a>
   <ul class="nav-links">
+    <li><a href="#uslugi">Usługi</a></li>
     <li><a href="#trasy">Trasy</a></li>
     <li><a href="#faq">FAQ</a></li>
     <li><a href="#cennik">Cennik</a></li>
@@ -252,6 +253,7 @@ footer{background:#060d1a;border-top:1px solid rgba(255,255,255,.05);padding:48p
 </nav>
 <div class="mobile-menu" id="mobileMenu">
   <ul>
+    <li><a href="#uslugi" onclick="closeMobileMenu()">Usługi</a></li>
     <li><a href="#trasy" onclick="closeMobileMenu()">Trasy</a></li>
     <li><a href="#faq" onclick="closeMobileMenu()">FAQ</a></li>
     <li><a href="#cennik" onclick="closeMobileMenu()">Cennik</a></li>
@@ -329,6 +331,69 @@ footer{background:#060d1a;border-top:1px solid rgba(255,255,255,.05);padding:48p
     Licencjonowany przewóz
   </div>
 </div>
+
+<!-- USŁUGI -->
+<section style="padding:90px 48px;max-width:1280px;margin:0 auto" id="uslugi">
+  <div class="section-label">Co oferujemy</div>
+  <h2 class="section-title">Nasze usługi</h2>
+  <p class="section-sub" style="margin-bottom:48px">Przewozy osób, paczki, lotniska i eventy — wszystko jednym busem.</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px">
+
+    <div style="background:var(--card);border:1px solid rgba(245,158,11,.18);border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:16px">
+      <div style="width:52px;height:52px;background:rgba(245,158,11,.1);border-radius:14px;display:flex;align-items:center;justify-content:center">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="1.8"><path d="M5 8h14M5 8a2 2 0 1 0 0 4h14a2 2 0 1 0 0-4M5 8l1-4h12l1 4M3 12v6a1 1 0 0 0 1 1h1m14-7v6a1 1 0 0 1-1 1h-1m-10 0h8"/></svg>
+      </div>
+      <div>
+        <div style="font-size:1.05rem;font-weight:800;color:var(--text);margin-bottom:6px">Transport paczek</div>
+        <div style="font-size:.88rem;color:var(--muted);line-height:1.6">Bezpieczny przewóz przesyłek i paczek na trasie <strong style="color:var(--text)">Polska ↔ Niemcy</strong>. Odbiór spod domu, dostawa pod wskazany adres.</div>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:auto">
+        <span style="font-size:.72rem;font-weight:700;padding:4px 10px;background:rgba(245,158,11,.1);color:var(--gold);border-radius:20px">🇵🇱 Polska</span>
+        <span style="font-size:.72rem;font-weight:700;padding:4px 10px;background:rgba(245,158,11,.1);color:var(--gold);border-radius:20px">🇩🇪 Niemcy</span>
+      </div>
+    </div>
+
+    <div style="background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:16px">
+      <div style="width:52px;height:52px;background:rgba(245,158,11,.1);border-radius:14px;display:flex;align-items:center;justify-content:center">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="1.8"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21 4 19 4s-2 1-3.5 2.5L9 8.2 2.8 6.4 1 8.2l6.8 3.6L4.8 15H3l-1 1 3 1 1 3 1-1v-1.8l3.2-3L14.8 22l1.8-1.8z"/></svg>
+      </div>
+      <div>
+        <div style="font-size:1.05rem;font-weight:800;color:var(--text);margin-bottom:6px">Transfery lotniskowe</div>
+        <div style="font-size:.88rem;color:var(--muted);line-height:1.6">Dowóz i odbiór z lotnisk w Polsce i za granicą. Punktualnie, komfortowo, bez stresu.</div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:auto">
+        <span style="font-size:.7rem;padding:3px 8px;background:rgba(255,255,255,.05);color:var(--muted);border-radius:20px">Kraków</span>
+        <span style="font-size:.7rem;padding:3px 8px;background:rgba(255,255,255,.05);color:var(--muted);border-radius:20px">Katowice</span>
+        <span style="font-size:.7rem;padding:3px 8px;background:rgba(255,255,255,.05);color:var(--muted);border-radius:20px">Wrocław</span>
+        <span style="font-size:.7rem;padding:3px 8px;background:rgba(255,255,255,.05);color:var(--muted);border-radius:20px">Warszawa</span>
+        <span style="font-size:.7rem;padding:3px 8px;background:rgba(255,255,255,.05);color:var(--muted);border-radius:20px">Wiedeń</span>
+        <span style="font-size:.7rem;padding:3px 8px;background:rgba(255,255,255,.05);color:var(--muted);border-radius:20px">Berlin</span>
+      </div>
+    </div>
+
+    <div style="background:var(--card);border:1px solid rgba(255,255,255,.06);border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:16px">
+      <div style="width:52px;height:52px;background:rgba(245,158,11,.1);border-radius:14px;display:flex;align-items:center;justify-content:center">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="1.8"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+      </div>
+      <div>
+        <div style="font-size:1.05rem;font-weight:800;color:var(--text);margin-bottom:6px">Wesela i eventy</div>
+        <div style="font-size:.88rem;color:var(--muted);line-height:1.6">Transport gości na wesela, uroczystości rodzinne i imprezy okolicznościowe. Wygodny bus dla całej grupy.</div>
+      </div>
+    </div>
+
+    <div style="background:var(--card);border:1px solid rgba(245,158,11,.18);border-radius:20px;padding:32px;display:flex;flex-direction:column;gap:16px">
+      <div style="width:52px;height:52px;background:rgba(245,158,11,.1);border-radius:14px;display:flex;align-items:center;justify-content:center">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="1.8"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+      </div>
+      <div>
+        <div style="font-size:1.05rem;font-weight:800;color:var(--text);margin-bottom:6px">Przejazdy VIP</div>
+        <div style="font-size:.88rem;color:var(--muted);line-height:1.6">Komfortowy, prywatny transport dla osób ceniących dyskrecję i klasę. Zarezerwuj cały bus tylko dla siebie.</div>
+      </div>
+      <a href="#rezerwacja" style="margin-top:auto;font-size:.82rem;font-weight:700;color:var(--gold);text-decoration:none">Zarezerwuj VIP →</a>
+    </div>
+
+  </div>
+</section>
 
 <!-- KALKULATOR + MAPA -->
 <section style="padding:90px 48px;max-width:1280px;margin:0 auto" id="trasy">
