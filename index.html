@@ -644,6 +644,27 @@ footer{background:#060d1a;border-top:1px solid rgba(255,255,255,.05);padding:48p
           </div>
         </div>
 
+        <!-- OSOBA 3 -->
+        <div id="osoba3" style="display:none;margin-top:12px;padding:20px;background:rgba(245,158,11,0.05);border:1px solid rgba(245,158,11,0.2);border-radius:12px">
+          <div style="font-size:.8rem;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px">Dane trzeciej osoby</div>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Imię i nazwisko</label>
+              <input type="text" name="imie_3" placeholder="Jan Kowalski">
+            </div>
+            <div class="form-group">
+              <label>Telefon</label>
+              <input type="tel" name="telefon_3" placeholder="+48 600 000 000">
+            </div>
+          </div>
+        </div>
+
+        <!-- OSOBA 4+ -->
+        <div id="osoba4" style="display:none;margin-top:12px;padding:16px 20px;background:rgba(245,158,11,0.05);border:1px solid rgba(245,158,11,0.2);border-radius:12px">
+          <div style="font-size:.8rem;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">4+ osoby</div>
+          <div style="font-size:.85rem;color:var(--muted)">Dane pozostałych osób wpisz w polu Uwagi poniżej.</div>
+        </div>
+
         <div class="form-grid" style="margin-top:14px">
           <div class="form-group form-full">
             <label>Uwagi (opcjonalnie)</label>
@@ -684,10 +705,12 @@ footer{background:#060d1a;border-top:1px solid rgba(255,255,255,.05);padding:48p
     mobileMenu.classList.remove('open');
   }
 
-  // Osoba 2
+  // Osoby dodatkowe
   function toggleOsoba2() {
-    const val = document.getElementById('liczbaOsob').value;
-    document.getElementById('osoba2').style.display = (val >= 2) ? 'block' : 'none';
+    const val = parseInt(document.getElementById('liczbaOsob').value);
+    document.getElementById('osoba2').style.display = val >= 2 ? 'block' : 'none';
+    document.getElementById('osoba3').style.display = val >= 3 ? 'block' : 'none';
+    document.getElementById('osoba4').style.display = val >= 4 ? 'block' : 'none';
   }
 
   // Tabs
